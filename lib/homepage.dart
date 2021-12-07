@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:my_first_app/taskview.dart';
 
 class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -21,7 +25,10 @@ class HomePage extends StatelessWidget {
             ),
             Container(height: 30),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const TaskView()));
+              },
               child: const Text('UPPGIFTER'),
             ),
           ],
