@@ -1,16 +1,27 @@
 import 'package:flutter/material.dart';
+import 'model.dart';
 import 'views/homepageview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:provider/provider.dart';
 
 Future<void> main() async {
+  var state = MyState();
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(MyApp());
+
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => state,
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
   final Future<FirebaseApp> _fbApp = Firebase.initializeApp();
-   MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,20 +30,20 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
-      home: FutureBuilder(future: _fbApp, builder: (context, snapshot) {
-        if (snapshot.hasError) {
-           print ('You have an error! ${snapshot.error.toString()}');
-           return const Text('Something went wrong');
-        }
-        else if (snapshot.hasData) {
-          return const HomePage();
-        }
-        else {
-          return const Center(child: CircularProgressIndicator(),
-          );
-        }
-      }
-      ),
+      home: FutureBuilder(
+          future: _fbApp,
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              print('You have an error! ${snapshot.error.toString()}');
+              return const Text('Something went wrong');
+            } else if (snapshot.hasData) {
+              return const HomePage();
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          }),
       //const HomePage(),
     );
   }
