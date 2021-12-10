@@ -13,4 +13,14 @@ class MyState extends ChangeNotifier {
   List<TaskItem> _list = [];
 
   List<TaskItem> get list => _list;
+
+  void addTask(TaskItem task) {
+    _list.add(task);
+    notifyListeners();
+  }
+
+  void removeTask(TaskItem task) {
+    _list.remove(task);
+    notifyListeners();
+  }
 }

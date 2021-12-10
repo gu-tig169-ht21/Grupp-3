@@ -16,7 +16,7 @@ class AddTaskView extends StatefulWidget {
 class AddTaskViewState extends State<AddTaskView> {
   String title = '';
   String deadline = '';
-  String description = '';
+  String? description = '';
 
   TextEditingController titleEditingController = TextEditingController();
   TextEditingController deadlineEditingController = TextEditingController();
@@ -24,10 +24,24 @@ class AddTaskViewState extends State<AddTaskView> {
 
   AddTaskViewState(TaskItem task) {
     this.title = task.title;
+    this.deadline = task.deadline;
+    this.description = task.description;
 
     titleEditingController.addListener(() {
       setState(() {
         title = titleEditingController.text;
+      });
+    });
+
+    deadlineEditingController.addListener(() {
+      setState(() {
+        deadline = deadlineEditingController.text;
+      });
+    });
+
+    descriptionEditingController.addListener(() {
+      setState(() {
+        description = descriptionEditingController.text;
       });
     });
   }
@@ -91,5 +105,7 @@ class AddTaskViewState extends State<AddTaskView> {
       decoration: const InputDecoration(
           border: OutlineInputBorder(), hintText: 'Add new description'),
     );
+
+    //Lägg till val av färg
   }
 }
