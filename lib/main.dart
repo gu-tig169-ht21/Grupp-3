@@ -32,7 +32,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
-      home: FutureBuilder(builder: (context, snapshot) {
+      home: const HomePage(),
+
+      /*FutureBuilder(builder: (context, snapshot) {
         if (snapshot.hasError) {
           print('You have an error! ${snapshot.error.toString()}');
           return const Text('Something went wrong');
@@ -44,7 +46,7 @@ class MyApp extends StatelessWidget {
           );
         }
       }),
-      //const HomePage(),
+      //const HomePage(),*/
     );
   }
 }

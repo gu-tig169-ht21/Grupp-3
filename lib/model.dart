@@ -16,15 +16,17 @@ class MyState extends ChangeNotifier {
 
   List<TaskItem> get list => _list;
 
-  final databaseRef = FirebaseDatabase.instance.ref();
+  // final databaseRef = FirebaseDatabase.instance.ref();
 
   void addTask(TaskItem task) {
     _list.add(task);
     notifyListeners();
     //databaseRef.push().set({task});
-    FirebaseFirestore.instance
-        .collection('TaskItem')
-        .add({'title': '', 'deadline': '', 'description': ''});
+    FirebaseFirestore.instance.collection('TaskItem').add({
+      'title': task.title,
+      'deadline': task.deadline,
+      'description': task.description
+    });
   }
 
   void removeTask(TaskItem task) {

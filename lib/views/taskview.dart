@@ -55,7 +55,7 @@ class TaskList extends StatelessWidget {
           return ListView(
             children: snapshot.data!.docs.map((document) {
               return Container(
-                child: Center(child: Text(document['text'])),
+                child: Center(child: Text(document['title'])),
               );
             }).toList(),
           );
