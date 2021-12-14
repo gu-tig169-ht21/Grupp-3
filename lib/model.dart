@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 
+import 'firestoreservice.dart';
+
 class TaskItem {
   // String id;   //varje task behöver ett id
   String title; //varje task behöver en title
@@ -21,6 +23,8 @@ class TaskItem {
 }
 
 class MyState extends ChangeNotifier {
+  final service = FireStoreService();
+
   List<TaskItem> _list = [];
 
   List<TaskItem> get list => _list;

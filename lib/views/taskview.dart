@@ -6,6 +6,7 @@ import '../model.dart';
 import 'addtaskview.dart';
 import 'dart:math';
 import 'descriptionview.dart';
+import '../firestoreservice.dart';
 
 class TaskView extends StatelessWidget {
   const TaskView({Key? key}) : super(key: key);
@@ -86,3 +87,15 @@ Widget _taskItem(context, TaskItem task) {
     ),
   );
 }
+
+
+/*     LÄGG TILL TASK SOM FUNKAR I GAMLA KODEN
+        onPressed: () async {
+          var newItem = await Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => AddTaskView(
+                      TaskItem(title: '', deadline: '', description: ''))));
+          if (newItem != null) {
+            Provider.of<MyState>(context, listen: false).addTask(newItem);
+            */
