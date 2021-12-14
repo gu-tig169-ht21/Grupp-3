@@ -9,6 +9,15 @@ class TaskItem {
   String? description;
 
   TaskItem({required this.title, required this.deadline, this.description});
+
+  Map<String, dynamic> createMap() {
+    return {'title': title, 'deadline': deadline, 'description': description};
+  }
+
+  TaskItem.fromFirestore(Map<String, dynamic> firestoreMap)
+      : title = firestoreMap['title'],
+        deadline = firestoreMap['deadline'],
+        description = firestoreMap['description'];
 }
 
 class MyState extends ChangeNotifier {
@@ -16,12 +25,7 @@ class MyState extends ChangeNotifier {
 
   List<TaskItem> get list => _list;
 
-  // final databaseRef = FirebaseDatabase.instance.ref();
-
   void addTask(TaskItem task) {
-    _list.add(task);
-    notifyListeners();
-    //databaseRef.push().set({task});
     FirebaseFirestore.instance.collection('TaskItem').add({
       'title': task.title,
       'deadline': task.deadline,
@@ -30,13 +34,8 @@ class MyState extends ChangeNotifier {
   }
 
   void removeTask(TaskItem task) {
+    //fixa
     _list.remove(task);
     notifyListeners();
   }
-/*
-  void getTask() {
-    databaseRef.once().then(( snapshot) {
-      print('Data : ${snapshot.value}');
-    });
-  }*/
 }

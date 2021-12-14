@@ -55,8 +55,12 @@ class AddTaskViewState extends State<AddTaskView> {
         actions: [
           ElevatedButton(
             onPressed: () {
-              Navigator.pop(context,
-                  TaskItem(title: title, deadline: deadline, description: ''));
+              Navigator.pop(
+                  context,
+                  TaskItem(
+                      title: title,
+                      deadline: deadline,
+                      description: description));
             },
             child: Text('Spara', style: TextStyle(color: Colors.white)),
           ),
