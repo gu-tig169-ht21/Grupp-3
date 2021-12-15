@@ -2,10 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../firebase_services.dart';
 import '../model.dart';
 import 'addtaskview.dart';
 import 'dart:math';
 import 'descriptionview.dart';
+import '../firebase_services.dart';
 
 class TaskView extends StatelessWidget {
   const TaskView({Key? key}) : super(key: key);
@@ -55,8 +57,13 @@ class TaskList extends StatelessWidget {
           return ListView(
             children: snapshot.data!.docs.map((document) {
               return Container(
-                child: Center(child: Text(document['title'])),
-              );
+                  child: Center(
+                      child: _taskItem(
+                          context,
+                          TaskItem(
+                              title: 'title',
+                              deadline: 'deadline',
+                              description: 'description'))));
             }).toList(),
           );
         });
@@ -86,3 +93,32 @@ Widget _taskItem(context, TaskItem task) {
     ),
   );
 }
+
+
+/* List taskList = Provider.of<List<TaskItem>>(context);
+    FirebaseServices firebaseServices = FirebaseServices();
+    
+    body: ListView.builder(
+        itemCount: taskList.length,
+        itemBuilder: (_, int index) => Padding(
+          padding: EdgeInsets.all(10.0),
+          child: ListTile(
+            leading: CircleAvatar(
+              backgroundColor: Colors.amber,
+            ),
+            title: Text(
+              taskList[index].title,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 20.0,
+              ),
+            ),
+            subtitle: Text(
+              taskList[index].deadline,
+              style: TextStyle(
+                fontSize: 25.0,
+              ),
+            ),
+          ),
+        ),
+      ),*/
