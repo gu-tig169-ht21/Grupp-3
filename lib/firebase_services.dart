@@ -2,9 +2,10 @@ import 'model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirebaseServices {
-  final FirebaseFirestore _fireStoreDataBase = FirebaseFirestore.instance;
+  static final FirebaseFirestore _fireStoreDataBase =
+      FirebaseFirestore.instance;
 
-  Stream<List<TaskItem>> getTasks() {
+  static Stream<List<TaskItem>> getTasks() {
     return _fireStoreDataBase.collection('TaskItem').snapshots().map(
         (snapShot) => snapShot.docs
             .map((document) => TaskItem.fromJson(document.data()))

@@ -34,14 +34,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final FirebaseServices firebaseServices = FirebaseServices();
+    // final FirebaseServices firebaseServices = FirebaseServices();
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<MyState>(create: (context) => MyState()),
-        StreamProvider.value(
-          value: firebaseServices.getTasks(),
+        StreamProvider<List<TaskItem>>.value(
+          value: FirebaseServices.getTasks(),
           initialData: [],
         ),
+        /*  StreamProvider.value(
+          value: FirebaseServices.getTasks(),
+          initialData: [],*/
         /*(
           create: (BuildContext context) => firebaseServices.getTasks(),
           initialData: [],),*/
