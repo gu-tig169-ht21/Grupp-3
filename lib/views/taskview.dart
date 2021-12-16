@@ -62,8 +62,7 @@ class _TaskListState extends State<TaskList> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Text('loading');
           }
-          return ListView(
-            children: snapshot.data!.docs.map((DocumentSnapshot document) {
+          return ListView(children: snapshot.data!.docs.map((DocumentSnapshot document) {
               Map<String, dynamic> data =
                   document.data()! as Map<String, dynamic>;
               return ListTile(
@@ -90,6 +89,7 @@ class _TaskListState extends State<TaskList> {
         });
   }
 }
+
 
 //Fungerande TaskList när den var stateless
 /* Widget build(BuildContext context) {
