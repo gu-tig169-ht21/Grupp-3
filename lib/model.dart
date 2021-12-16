@@ -14,10 +14,15 @@ class TaskItem {
     return {'title': title, 'deadline': deadline, 'description': description};
   }
 
-  TaskItem.fromFirestore(Map<String, dynamic> firestoreMap)
+  TaskItem.fromJson(Map<String, dynamic> parsedJSON)
+      : title = parsedJSON['title'],
+        deadline = parsedJSON['deadline'],
+        description = parsedJSON['description'];
+
+  /*TaskItem.fromFirestore(Map<String, dynamic> firestoreMap)
       : title = firestoreMap['title'],
         deadline = firestoreMap['deadline'],
-        description = firestoreMap['description'];
+        description = firestoreMap['description'];*/
 }
 
 class MyState extends ChangeNotifier {

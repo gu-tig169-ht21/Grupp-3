@@ -2,10 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../firebase_services.dart';
 import '../model.dart';
 import 'addtaskview.dart';
 import 'dart:math';
 import 'descriptionview.dart';
+import '../firebase_services.dart';
 
 class TaskView extends StatelessWidget {
   const TaskView({Key? key}) : super(key: key);
@@ -37,36 +39,84 @@ class TaskView extends StatelessWidget {
   }
 }
 
-class TaskList extends StatelessWidget {
+class TaskList extends StatefulWidget {
   final List<TaskItem> list;
 
   TaskList(this.list);
 
   @override
+  State<TaskList> createState() => _TaskListState();
+}
+
+class _TaskListState extends State<TaskList> {
+  final Stream<QuerySnapshot> _taskStream =
+      FirebaseFirestore.instance.collection('TaskItem').snapshots();
+  @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('TaskItem').snapshots(),
+    return StreamBuilder<QuerySnapshot>(
+        stream: _taskStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (!snapshot.hasData) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
+          if (snapshot.hasError) {
+            return Text('Something went wrong');
           }
-          return ListView(
-            children: snapshot.data!.docs.map((document) {
-              return Container(
-                child: Center(
-                  child: _taskItem(
-                    context, 
-                    TaskItem(
-                      title: 'title',
-                      deadline: 'deadline',
-                      description: 'description'))));
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Text('loading');
+          }
+          return ListView(children: snapshot.data!.docs.map((DocumentSnapshot document) {
+              Map<String, dynamic> data =
+                  document.data()! as Map<String, dynamic>;
+              return ListTile(
+                leading: Icon(
+                  Icons.group_work_rounded,
+                  size: 30,
+                  color: Colors
+                      .primaries[Random().nextInt(Colors.primaries.length)],
+                ),
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            DescriptionView(TaskItem.fromJson(data)))),
+                title: Text(data['title']),
+                subtitle: Text(data['deadline']),
+                trailing: IconButton(
+                  icon: Icon(Icons.delete),
+                  onPressed: () {},
+                ),
+              );
             }).toList(),
           );
         });
   }
 }
+
+
+//Fungerande TaskList när den var stateless
+/* Widget build(BuildContext context) {
+    return Consumer<Stream<List<TaskItem>>>(
+        builder: (context, Stream<List<TaskItem>> tasks, child) {
+      return StreamBuilder(
+          stream: tasks,
+          builder:
+              (BuildContext context, AsyncSnapshot<List<TaskItem>> snapshot) {
+            if (snapshot.data != null) {
+              return ListView(
+                children: snapshot.data!.map((TaskItem item) {
+                  return Container(
+                    child: Center(
+                      child: _taskItem(context, item),
+                    ),
+                  );
+                }).toList(),
+              );
+            }
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          });
+    });
+  }
+}*/
 
 /*ListView(
         children: list.map((task) => _taskItem(context, task)).toList());*/
@@ -91,3 +141,32 @@ Widget _taskItem(context, TaskItem task) {
     ),
   );
 }
+
+
+/* List taskList = Provider.of<List<TaskItem>>(context);
+    FirebaseServices firebaseServices = FirebaseServices();
+    
+    body: ListView.builder(
+        itemCount: taskList.length,
+        itemBuilder: (_, int index) => Padding(
+          padding: EdgeInsets.all(10.0),
+          child: ListTile(
+            leading: CircleAvatar(
+              backgroundColor: Colors.amber,
+            ),
+            title: Text(
+              taskList[index].title,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 20.0,
+              ),
+            ),
+            subtitle: Text(
+              taskList[index].deadline,
+              style: TextStyle(
+                fontSize: 25.0,
+              ),
+            ),
+          ),
+        ),
+      ),*/

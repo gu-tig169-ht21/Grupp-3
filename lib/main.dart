@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'firebase_services.dart';
 import 'model.dart';
 import 'views/homepageview.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -8,7 +9,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-Future<void> main() async {
+/*Future<void> main() async {
   var state = MyState();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -19,6 +20,12 @@ Future<void> main() async {
       child: MyApp(),
     ),
   );
+}*/
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -27,14 +34,30 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.indigo,
+    // final FirebaseServices firebaseServices = FirebaseServices();
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<MyState>(create: (context) => MyState()),
+        StreamProvider<List<TaskItem>>.value(
+          value: FirebaseServices.getTasks(),
+          initialData: [],
+        ),
+        /*  StreamProvider.value(
+          value: FirebaseServices.getTasks(),
+          initialData: [],*/
+        /*(
+          create: (BuildContext context) => firebaseServices.getTasks(),
+          initialData: [],),*/
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.indigo,
+        ),
+        home: const HomePage(),
       ),
-      home: const HomePage(),
-
-      /*FutureBuilder(builder: (context, snapshot) {
+    );
+    /*FutureBuilder(builder: (context, snapshot) {
         if (snapshot.hasError) {
           print('You have an error! ${snapshot.error.toString()}');
           return const Text('Something went wrong');
@@ -47,6 +70,5 @@ class MyApp extends StatelessWidget {
         }
       }),
       //const HomePage(),*/
-    );
   }
 }
