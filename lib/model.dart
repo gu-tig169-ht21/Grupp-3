@@ -30,6 +30,13 @@ class MyState extends ChangeNotifier {
 
   List<TaskItem> get list => _list;
 
+  Stream<List<TaskItem>> getTasks() {
+    return FirebaseFirestore.instance.collection('TaskItem').snapshots().map(
+        (snapShot) => snapShot.docs
+            .map((document) => TaskItem.fromJson(document.data()))
+            .toList());
+  }
+
   void addTask(TaskItem task) {
     FirebaseFirestore.instance.collection('TaskItem').add({
       'title': task.title,

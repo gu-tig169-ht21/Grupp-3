@@ -39,60 +39,13 @@ class TaskView extends StatelessWidget {
   }
 }
 
-class TaskList extends StatefulWidget {
+class TaskList extends StatelessWidget {
   final List<TaskItem> list;
 
   TaskList(this.list);
 
   @override
-  State<TaskList> createState() => _TaskListState();
-}
-
-class _TaskListState extends State<TaskList> {
-  final Stream<QuerySnapshot> _taskStream =
-      FirebaseFirestore.instance.collection('TaskItem').snapshots();
-  @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-        stream: _taskStream,
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.hasError) {
-            return Text('Something went wrong');
-          }
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Text('loading');
-          }
-          return ListView(children: snapshot.data!.docs.map((DocumentSnapshot document) {
-              Map<String, dynamic> data =
-                  document.data()! as Map<String, dynamic>;
-              return ListTile(
-                leading: Icon(
-                  Icons.group_work_rounded,
-                  size: 30,
-                  color: Colors
-                      .primaries[Random().nextInt(Colors.primaries.length)],
-                ),
-                onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            DescriptionView(TaskItem.fromJson(data)))),
-                title: Text(data['title']),
-                subtitle: Text(data['deadline']),
-                trailing: IconButton(
-                  icon: Icon(Icons.delete),
-                  onPressed: () {},
-                ),
-              );
-            }).toList(),
-          );
-        });
-  }
-}
-
-
-//Fungerande TaskList när den var stateless
-/* Widget build(BuildContext context) {
     return Consumer<Stream<List<TaskItem>>>(
         builder: (context, Stream<List<TaskItem>> tasks, child) {
       return StreamBuilder(
@@ -115,6 +68,49 @@ class _TaskListState extends State<TaskList> {
             );
           });
     });
+  }
+}
+
+/* FUNGERANDE TASKLIST PÅ SÄTTET SOM LOVISA FIXADE EFTER HANDLEDNING MED SEBASTIAN
+
+    Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+        stream: _taskStream,
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError) {
+            return Text('Something went wrong');
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return ListView(
+            children: snapshot.data!.docs.map((DocumentSnapshot document) {
+              Map<String, dynamic> data =
+                  document.data()! as Map<String, dynamic>;
+              return ListTile(
+                leading: Icon(
+                  Icons.group_work_rounded,
+                  size: 30,
+                  color: Colors
+                      .primaries[Random().nextInt(Colors.primaries.length)],
+                ),
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            DescriptionView(TaskItem.fromJson(data)))),
+                title: Text(data['title']),
+                subtitle: Text(data['deadline']),
+                trailing: IconButton(
+                  icon: Icon(Icons.close),
+                  onPressed: () {},
+                ),
+              );
+            }).toList(),
+          );
+        });
   }
 }*/
 

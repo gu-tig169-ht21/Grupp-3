@@ -9,7 +9,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-/*Future<void> main() async {
+Future<void> main() async {
   var state = MyState();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -20,13 +20,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
       child: MyApp(),
     ),
   );
-}*/
+}
 
-void main() async {
+/*void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
-}
+}*/
 
 class MyApp extends StatelessWidget {
   // final Future<FirebaseApp> _fbApp = Firebase.initializeApp();
@@ -35,27 +35,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final FirebaseServices firebaseServices = FirebaseServices();
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<MyState>(create: (context) => MyState()),
-        StreamProvider<List<TaskItem>>.value(
-          value: FirebaseServices.getTasks(),
-          initialData: [],
-        ),
-        /*  StreamProvider.value(
-          value: FirebaseServices.getTasks(),
-          initialData: [],*/
-        /*(
-          create: (BuildContext context) => firebaseServices.getTasks(),
-          initialData: [],),*/
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.indigo,
-        ),
-        home: const HomePage(),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.indigo,
       ),
+      home: const HomePage(),
     );
     /*FutureBuilder(builder: (context, snapshot) {
         if (snapshot.hasError) {

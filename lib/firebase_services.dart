@@ -1,9 +1,12 @@
 import 'model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class FirebaseServices {
+/*class FirebaseServices {
   static final FirebaseFirestore _fireStoreDataBase =
       FirebaseFirestore.instance;
+
+  CollectionReference taskItems =
+      FirebaseFirestore.instance.collection('TaskItem');
 
   static Stream<List<TaskItem>> getTasks() {
     return _fireStoreDataBase.collection('TaskItem').snapshots().map(
@@ -19,4 +22,5 @@ class FirebaseServices {
     addTaskData['description'] = '';
     return _fireStoreDataBase.collection('TaskItem').add(addTaskData);
   }
-}
+
+}*/
