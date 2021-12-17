@@ -18,17 +18,19 @@ class TaskItem {
       : title = parsedJSON['title'],
         deadline = parsedJSON['deadline'],
         description = parsedJSON['description'];
-
-  /*TaskItem.fromFirestore(Map<String, dynamic> firestoreMap)
-      : title = firestoreMap['title'],
-        deadline = firestoreMap['deadline'],
-        description = firestoreMap['description'];*/
 }
 
 class MyState extends ChangeNotifier {
   List<TaskItem> _list = [];
 
   List<TaskItem> get list => _list;
+
+  Stream<List<TaskItem>> getTasks() {
+    return FirebaseFirestore.instance.collection('TaskItem').snapshots().map(
+        (snapShot) => snapShot.docs
+            .map((document) => TaskItem.fromJson(document.data()))
+            .toList());
+  }
 
   void addTask(TaskItem task) {
     FirebaseFirestore.instance.collection('TaskItem').add({
