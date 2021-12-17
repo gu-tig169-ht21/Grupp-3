@@ -49,7 +49,6 @@ class AddTaskViewState extends State<AddTaskView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        //lägg till spara-knapp för att spara nya uppgifter
         centerTitle: true,
         title: const Text('Lägg till uppgift'),
         actions: [
