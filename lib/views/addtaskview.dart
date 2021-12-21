@@ -57,6 +57,7 @@ class AddTaskViewState extends State<AddTaskView> {
               Navigator.pop(
                   context,
                   TaskItem(
+                      id: '',
                       title: title,
                       deadline: deadline,
                       description: description));

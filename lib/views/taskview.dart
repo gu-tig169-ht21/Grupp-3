@@ -28,8 +28,8 @@ class TaskView extends StatelessWidget {
           var newItem = await Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => AddTaskView(
-                      TaskItem(title: '', deadline: '', description: ''))));
+                  builder: (context) => AddTaskView(TaskItem(
+                      id: '', title: '', deadline: '', description: ''))));
           if (newItem != null) {
             Provider.of<MyState>(context, listen: false).addTask(newItem);
           }
