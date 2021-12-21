@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -79,7 +78,7 @@ Widget _taskItem(context, TaskItem task) {
     leading: Icon(
       Icons.group_work_rounded,
       size: 30,
-      color: Colors.primaries[Random().nextInt(Colors.primaries.length)],
+      color: Colors.orange,
     ),
     onTap: () => Navigator.push(context,
         MaterialPageRoute(builder: (context) => DescriptionView(task))),
@@ -93,67 +92,3 @@ Widget _taskItem(context, TaskItem task) {
     ),
   );
 }
-
- /*  SÅSOM DET SÅG UT I TASKLIST EFTER HANDLEDNING MED SEBASTIAN
-      child: Consumer<Stream<List<TaskItem>>>(
-          builder: (context, Stream<List<TaskItem>> tasks, child) {
-        return StreamBuilder(
-            stream: tasks,
-            builder:
-                (BuildContext context, AsyncSnapshot<List<TaskItem>> snapshot) {
-              if (snapshot.data != null) {
-                return ListView(
-                  children: snapshot.data!.map((TaskItem item) {
-                    return Container(
-                      child: Center(
-                        child: _taskItem(context, item),
-                      ),
-                    );
-                  }).toList(),
-                );
-              }*/
-
-
-
-/* FUNGERANDE TASKLIST PÅ SÄTTET SOM LOVISA FIXADE EFTER HANDLEDNING MED SEBASTIAN
-
-    Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-        stream: _taskStream,
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.hasError) {
-            return Text('Something went wrong');
-          }
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          return ListView(
-            children: snapshot.data!.docs.map((DocumentSnapshot document) {
-              Map<String, dynamic> data =
-                  document.data()! as Map<String, dynamic>;
-              return ListTile(
-                leading: Icon(
-                  Icons.group_work_rounded,
-                  size: 30,
-                  color: Colors
-                      .primaries[Random().nextInt(Colors.primaries.length)],
-                ),
-                onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            DescriptionView(TaskItem.fromJson(data)))),
-                title: Text(data['title']),
-                subtitle: Text(data['deadline']),
-                trailing: IconButton(
-                  icon: Icon(Icons.close),
-                  onPressed: () {},
-                ),
-              );
-            }).toList(),
-          );
-        });
-  }
-}*/
