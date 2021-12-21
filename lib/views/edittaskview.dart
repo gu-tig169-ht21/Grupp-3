@@ -1,29 +1,31 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 import '../model.dart';
 
-class AddTaskView extends StatefulWidget {
+class EditTaskView extends StatefulWidget {
   final TaskItem task;
 
-  const AddTaskView(this.task);
+  const EditTaskView(this.task);
 
   @override
-  State<StatefulWidget> createState() {
-    return AddTaskViewState(task);
+  State<EditTaskView> createState() {
+    return EditTaskViewState(task);
   }
 }
 
-class AddTaskViewState extends State<AddTaskView> {
+class EditTaskViewState extends State<EditTaskView> {
   String title = '';
   String deadline = '';
   String? description = '';
   final _formKey = GlobalKey<FormState>();
+  final task;
 
   TextEditingController titleEditingController = TextEditingController();
   TextEditingController deadlineEditingController = TextEditingController();
   TextEditingController descriptionEditingController = TextEditingController();
 
-  AddTaskViewState(TaskItem task) {
+  EditTaskViewState(this.task) {
     this.title = task.title;
     this.deadline = task.deadline;
     this.description = task.description;
@@ -46,12 +48,13 @@ class AddTaskViewState extends State<AddTaskView> {
       });
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Lägg till uppgift'),
+        title: const Text('Ändra Uppgift'),
         actions: [
           ElevatedButton(
             onPressed: () {
@@ -59,13 +62,13 @@ class AddTaskViewState extends State<AddTaskView> {
                 Navigator.pop(
                     context,
                     TaskItem(
-                        id: '',
+                        id: task.id,
                         title: title,
                         deadline: deadline,
                         description: description));
               }
             },
-            child: Text('Spara', style: TextStyle(color: Colors.white)),
+            child: Text('Spara Ändring', style: TextStyle(color: Colors.white)),
           ),
         ],
       ),
@@ -74,22 +77,40 @@ class AddTaskViewState extends State<AddTaskView> {
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(height: 30),
-              titleBox(),
-              Container(height: 20),
-              deadlineBox(),
-              Container(height: 20),
-              descriptionBox(),
+              Container(
+                padding: const EdgeInsets.only(left: 23),
+                margin: const EdgeInsets.only(top: 30),
+                child: const Text('Titel',
+                    style:
+                        TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+              ),
+              editTitleBox(),
+              Container(
+                padding: const EdgeInsets.only(left: 23),
+                margin: const EdgeInsets.only(top: 20),
+                child: const Text('Deadline',
+                    style:
+                        TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+              ),
+              editDeadlineBox(),
+              Container(
+                padding: const EdgeInsets.only(left: 23),
+                margin: const EdgeInsets.only(top: 20),
+                child: const Text('Beskrivning',
+                    style:
+                        TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+              ),
+              editDescriptionBox(),
             ],
           ),
         ),
       ),
-    );
+    ); //Ändra editknapp
   }
 
-  Widget titleBox() {
+  Widget editTitleBox() {
     return TextFormField(
       validator: (value) {
         if (value == null || value.isEmpty) {
@@ -98,12 +119,14 @@ class AddTaskViewState extends State<AddTaskView> {
         return null;
       },
       controller: titleEditingController,
-      decoration: const InputDecoration(
-          border: OutlineInputBorder(), hintText: 'Add new task'),
+      decoration: InputDecoration(
+        border: const OutlineInputBorder(),
+        hintText: task.title,
+      ),
     );
   }
 
-  Widget deadlineBox() {
+  Widget editDeadlineBox() {
     return TextFormField(
       validator: (value) {
         if (value == null || value.isEmpty) {
@@ -112,19 +135,20 @@ class AddTaskViewState extends State<AddTaskView> {
         return null;
       },
       controller: deadlineEditingController,
-      decoration: const InputDecoration(
-          border: OutlineInputBorder(), hintText: 'Add new deadline'),
+      decoration: InputDecoration(
+        border: const OutlineInputBorder(),
+        hintText: task.deadline,
+      ),
     );
   }
 
-  Widget descriptionBox() {
+  Widget editDescriptionBox() {
     return TextFormField(
       controller: descriptionEditingController,
-      decoration: const InputDecoration(
-          border: OutlineInputBorder(),
-          hintText: 'Add new description (optional)'),
+      decoration: InputDecoration(
+        border: const OutlineInputBorder(),
+        hintText: task.description,
+      ),
     );
-
-    //Lägg till val av färg
   }
 }

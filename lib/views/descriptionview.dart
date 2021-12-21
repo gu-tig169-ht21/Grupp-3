@@ -2,6 +2,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_first_app/model.dart';
+import 'package:my_first_app/views/edittaskview.dart';
 import 'package:provider/provider.dart';
 
 class DescriptionView extends StatefulWidget {
@@ -27,8 +28,19 @@ class DescriptionViewState extends State<DescriptionView> {
         title: const Text('Granska uppgift'),
         actions: [
           ElevatedButton(
-            onPressed: () {
-              print('edit');
+            onPressed: () async {
+              var updatedItem = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => EditTaskView((TaskItem(
+                          id: task.id,
+                          title: '',
+                          deadline: '',
+                          description: '')))));
+              if (updatedItem != null) {
+                Provider.of<MyState>(context, listen: false)
+                    .updateTask(updatedItem);
+              }
             },
             child: Text('Ändra', style: TextStyle(color: Colors.white)),
           ),

@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 
 class TaskItem {
@@ -62,13 +61,16 @@ class MyState extends ChangeNotifier {
         .catchError((error) => print('Failed to delete task: $error'));
   }
 
-/*  CollectionReference testing = FirebaseFirestore.instance.collection('testing');
-
-Future<void> deleteDate() {
-  return testing
-      .doc('docId')
-      .delete()
-      .then((value) => print("User Deleted"))
-      .catchError((error) => print("Failed to delete user: $error"));
-}*/
+  Future<void> updateTask(TaskItem task) {
+    return FirebaseFirestore.instance
+        .collection('TaskItem')
+        .doc(task.id)
+        .update({
+          'title': task.title,
+          'deadline': task.deadline,
+          'description': task.description
+        })
+        .then((value) => print('Uppgiften uppdaterades'))
+        .catchError((error) => print('Failed to update task: $error'));
+  }
 }
