@@ -5,14 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:my_first_app/views/timerviews/secondtimerview.dart';
 
 import 'thirdtimerview.dart';
+import 'timerview.dart';
 
-class TimerView extends StatefulWidget {
+class SecondTimerView extends StatefulWidget {
   @override
-  State<TimerView> createState() => _TimerViewState();
+  State<SecondTimerView> createState() => _SecondTimerView();
 }
 
-class _TimerViewState extends State<TimerView> {
-  static const countDownDuration = Duration(minutes: 25, seconds: 0);
+class _SecondTimerView extends State<SecondTimerView> {
+  static const countDownDuration = Duration(minutes: 5, seconds: 0);
   Duration duration = countDownDuration;
 
   Timer? timer;
@@ -93,15 +94,14 @@ class _TimerViewState extends State<TimerView> {
           if (isLive) {
             stopTimer();
           }
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => TimerView()));
         },
         child: const Text('Pluggtimer'),
       ),
       Container(width: 10),
       ElevatedButton(
-        onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => SecondTimerView()));
-        },
+        onPressed: () {},
         child: const Text('Kort rast'),
       ),
       Container(width: 10),
@@ -124,12 +124,12 @@ class _TimerViewState extends State<TimerView> {
       children: [
         timeWidgetCard(
           time: minutes,
-          header: 'Minuter  /',
+          header: 'MINUTER',
         ),
         SizedBox(width: 7),
         timeWidgetCard(
           time: seconds,
-          header: 'Sekunder',
+          header: 'SEKUNDER',
         )
       ],
     );
@@ -154,7 +154,7 @@ class _TimerViewState extends State<TimerView> {
             ),
           ),
           SizedBox(height: 20),
-          Text(header, style: TextStyle(color: Colors.blueGrey)),
+          Text(header, style: TextStyle(color: Colors.grey)),
         ],
       );
 
