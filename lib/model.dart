@@ -1,34 +1,48 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 
 class TaskItem {
-  // String id;   //varje task behöver ett id
+  String id; //varje task behöver ett id
   String title; //varje task behöver en title
   String deadline; //varje task behöver en deadline
   String? description;
 
-  TaskItem({required this.title, required this.deadline, this.description});
+  TaskItem(
+      {required this.id,
+      required this.title,
+      required this.deadline,
+      this.description});
 
   Map<String, dynamic> createMap() {
-    return {'title': title, 'deadline': deadline, 'description': description};
+    return {
+      'id': id,
+      'title': title,
+      'deadline': deadline,
+      'description': description
+    };
   }
 
-  TaskItem.fromJson(Map<String, dynamic> parsedJSON)
-      : title = parsedJSON['title'],
+  TaskItem.fromIdAndJson(String idFromFirebase, Map<String, dynamic> parsedJSON)
+      : id = idFromFirebase,
+        title = parsedJSON['title'],
         deadline = parsedJSON['deadline'],
         description = parsedJSON['description'];
-
-  /*TaskItem.fromFirestore(Map<String, dynamic> firestoreMap)
-      : title = firestoreMap['title'],
-        deadline = firestoreMap['deadline'],
-        description = firestoreMap['description'];*/
 }
 
 class MyState extends ChangeNotifier {
   List<TaskItem> _list = [];
 
   List<TaskItem> get list => _list;
+
+  Stream<List<TaskItem>> getTasks() {
+    return FirebaseFirestore.instance
+        .collection('TaskItem')
+        .snapshots()
+        .map((snapShot) => snapShot.docs.map((document) {
+              print(document);
+              return TaskItem.fromIdAndJson(document.id, document.data());
+            }).toList());
+  }
 
   void addTask(TaskItem task) {
     FirebaseFirestore.instance.collection('TaskItem').add({
@@ -38,9 +52,25 @@ class MyState extends ChangeNotifier {
     });
   }
 
-  void removeTask(TaskItem task) {
-    //fixa
-    _list.remove(task);
-    notifyListeners();
+  Future<void> removeTask(TaskItem task) {
+    return FirebaseFirestore.instance
+        .collection('TaskItem')
+        .doc(task.id)
+        .delete()
+        .then((value) => print('Det togs bort'))
+        .catchError((error) => print('Failed to delete task: $error'));
+  }
+
+  Future<void> updateTask(TaskItem task) {
+    return FirebaseFirestore.instance
+        .collection('TaskItem')
+        .doc(task.id)
+        .update({
+          'title': task.title,
+          'deadline': task.deadline,
+          'description': task.description
+        })
+        .then((value) => print('Uppgiften uppdaterades'))
+        .catchError((error) => print('Failed to update task: $error'));
   }
 }
