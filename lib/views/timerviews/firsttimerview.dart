@@ -2,21 +2,19 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:my_first_app/views/timerviews/secondtimer.dart';
+import 'package:my_first_app/views/timerviews/secondtimerview.dart';
 
-class TimerView extends StatefulWidget {
+import 'thirdtimerview.dart';
+
+class FirstTimerView extends StatefulWidget {
   @override
-  State<TimerView> createState() => _TimerViewState();
+  State<FirstTimerView> createState() => _FirstTimerView();
 }
 
-class _TimerViewState extends State<TimerView> {
-
+class _FirstTimerView extends State<FirstTimerView> {
   static const countDownDuration = Duration(minutes: 25, seconds: 0);
   Duration duration = countDownDuration;
 
-  /*static const secondCountDownDuration = Duration(minutes: 5, seconds: 0);
-  Duration secondDuration = secondCountDownDuration;
-*/
   Timer? timer;
 
   bool countDown = true;
@@ -35,8 +33,7 @@ class _TimerViewState extends State<TimerView> {
   }
 
   void startTimer() {
-    timer = Timer.periodic(Duration(seconds: 1), (_) =>
-    addTime());
+    timer = Timer.periodic(Duration(seconds: 1), (_) => addTime());
   }
 
   void addTime() {
@@ -61,9 +58,9 @@ class _TimerViewState extends State<TimerView> {
   @override
   Widget build(BuildContext context) {
     final ButtonStyle style = ElevatedButton.styleFrom(
-                        padding: EdgeInsets.all(10.0),
-                        minimumSize: const Size(20.0, 20.0),
-                        );
+      padding: EdgeInsets.all(10.0),
+      minimumSize: const Size(20.0, 20.0),
+    );
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -81,9 +78,8 @@ class _TimerViewState extends State<TimerView> {
               height: 20,
             ),
             stopWidget(),
-
           ],
-          ),
+        ),
       ),
     );
   }
@@ -91,39 +87,35 @@ class _TimerViewState extends State<TimerView> {
   Widget buttonWidget() {
     final isLive = timer == null ? false : timer!.isActive;
     final isDone = duration.inSeconds == 0;
-    return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      if (isLive) {
-                      stopTimer();
-                    }
-                    },
-                    child: const Text('Pluggtimer'),
-                                        
-                  ),
-                  Container(width: 10),
-                  ElevatedButton(
-                    onPressed: () {
-                     Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SecondTimer())); 
-                    },
-                    child: const Text('Kort rast'),
-                    
-                  ),
-                  Container(width: 10),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: const Text('Lång rast'),
-                    
-                  ),
-                  ]
-  );
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+      ElevatedButton(
+        onPressed: () {
+          if (isLive) {
+            stopTimer();
+          }
+        },
+        child: const Text('Pluggtimer'),
+      ),
+      Container(width: 10),
+      ElevatedButton(
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => SecondTimerView()));
+        },
+        child: const Text('Kort rast'),
+      ),
+      Container(width: 10),
+      ElevatedButton(
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => ThirdTimerView()));
+        },
+        child: const Text('Lång rast'),
+      ),
+    ]);
   }
 
   Widget timeWidget() {
-    
     String twoNumbers(int number) => number.toString().padLeft(2, '0');
     final minutes = twoNumbers(duration.inMinutes.remainder(60));
     final seconds = twoNumbers(duration.inSeconds.remainder(60));
@@ -132,12 +124,12 @@ class _TimerViewState extends State<TimerView> {
       children: [
         timeWidgetCard(
           time: minutes,
-          header: 'MINUTER',
+          header: 'Minuter  /',
         ),
         SizedBox(width: 7),
         timeWidgetCard(
           time: seconds,
-          header: 'SEKUNDER',
+          header: 'Sekunder',
         )
       ],
     );
@@ -150,19 +142,19 @@ class _TimerViewState extends State<TimerView> {
           Container(
             padding: EdgeInsets.all(7),
             decoration: BoxDecoration(
-              color: Colors.blue,
+              color: Colors.lightBlue[700],
               borderRadius: BorderRadius.circular(10),
             ),
             child: Text(
               time,
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Colors.grey,
+                  color: Colors.grey[200],
                   fontSize: 40),
             ),
           ),
           SizedBox(height: 20),
-          Text(header, style: TextStyle(color: Colors.grey)),
+          Text(header, style: TextStyle(color: Colors.blueGrey)),
         ],
       );
 
@@ -170,31 +162,32 @@ class _TimerViewState extends State<TimerView> {
     final isLive = timer == null ? false : timer!.isActive;
     final isDone = duration.inSeconds == 0;
     return isLive || isDone
-       ? Row(
-         mainAxisAlignment: MainAxisAlignment.center,
-         children:[
-           ButtonWidget(
-            text: 'Pausa',
-            color: Colors.grey,
-            backgroundColor: Colors.white,
-            onClicked: () {
-              if (isLive) {
-                      stopTimer(resets: false);
-                    }
-              
-            }),
+        ? Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            ButtonWidget(
+                text: 'Pausa',
+                color: Colors.blue.shade800,
+                backgroundColor: Colors.grey.shade200,
+                onClicked: () {
+                  if (isLive) {
+                    stopTimer(resets: false);
+                  }
+                }),
             SizedBox(width: 10),
-            ButtonWidget(text: 'Avbryt', 
+            ButtonWidget(
+                text: 'Avbryt',
+                color: Colors.grey.shade200,
+                backgroundColor: Colors.blue.shade800,
+                onClicked: () {
+                  stopTimer();
+                })
+          ])
+        : ButtonWidget(
+            text: 'Starta Timer',
+            color: Colors.grey.shade200,
+            backgroundColor: Colors.blue.shade800,
             onClicked: () {
-              stopTimer();
-            })
-         ]
-       )
-            : ButtonWidget(text: 'Starta Timer', onClicked: (){
               startTimer();
             });
-        
-        
   }
 }
 
@@ -223,5 +216,3 @@ class ButtonWidget extends StatelessWidget {
         ),
       );
 }
-
-
