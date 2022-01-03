@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:my_first_app/views/taskview.dart';
 import 'timerviews/firsttimerview.dart';
 
-
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -11,7 +10,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('StudyBuddy'),
+        title: const Text('SmartStudy'), //StudyNest
       ),
       body: Center(
         child: Column(
@@ -19,12 +18,12 @@ class HomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(height: 40),
-            const Text('Pluggis-kompis'),
+            const Text('Väkomnstmeddelande'),
             Container(height: 20),
             ElevatedButton(
               onPressed: () {
-               Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => FirstTimerView())); 
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => FirstTimerView()));
               },
               child: const Text('PLUGGA'),
             ),
