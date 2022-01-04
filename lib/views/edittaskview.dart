@@ -72,38 +72,40 @@ class EditTaskViewState extends State<EditTaskView> {
           ),
         ],
       ),
-      body: Form(
-        key: _formKey,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding: const EdgeInsets.only(left: 23),
-                margin: const EdgeInsets.only(top: 30),
-                child: const Text('Titel',
-                    style:
-                        TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
-              ),
-              editTitleBox(),
-              Container(
-                padding: const EdgeInsets.only(left: 23),
-                margin: const EdgeInsets.only(top: 20),
-                child: const Text('Deadline',
-                    style:
-                        TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
-              ),
-              editDeadlineBox(),
-              Container(
-                padding: const EdgeInsets.only(left: 23),
-                margin: const EdgeInsets.only(top: 20),
-                child: const Text('Beskrivning',
-                    style:
-                        TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
-              ),
-              editDescriptionBox(),
-            ],
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(left: 23),
+                  margin: const EdgeInsets.only(top: 30),
+                  child: const Text('Titel',
+                      style:
+                          TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+                ),
+                editTitleBox(),
+                Container(
+                  padding: const EdgeInsets.only(left: 23),
+                  margin: const EdgeInsets.only(top: 20),
+                  child: const Text('Deadline',
+                      style:
+                          TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+                ),
+                editDeadlineBox(),
+                Container(
+                  padding: const EdgeInsets.only(left: 23),
+                  margin: const EdgeInsets.only(top: 20),
+                  child: const Text('Beskrivning',
+                      style:
+                          TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+                ),
+                editDescriptionBox(),
+              ],
+            ),
           ),
         ),
       ),
@@ -111,43 +113,82 @@ class EditTaskViewState extends State<EditTaskView> {
   }
 
   Widget editTitleBox() {
-    return TextFormField(
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter title';
-        }
-        return null;
-      },
-      controller: titleEditingController,
-      decoration: InputDecoration(
-        border: const OutlineInputBorder(),
-        hintText: task.title,
+    return Container(
+      margin: const EdgeInsets.all(1),
+      padding: const EdgeInsets.all(10),
+      child: TextFormField(
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter title';
+          }
+          return null;
+        },
+        controller: titleEditingController,
+        decoration: InputDecoration(
+          hintText: task.title, //få till att hinttext syns
+          contentPadding:
+              new EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.indigo, width: 1.0),
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.indigo, width: 1.0),
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+        ),
       ),
     );
   }
 
   Widget editDeadlineBox() {
-    return TextFormField(
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter deadline';
-        }
-        return null;
-      },
-      controller: deadlineEditingController,
-      decoration: InputDecoration(
-        border: const OutlineInputBorder(),
-        hintText: task.deadline,
+    return Container(
+      margin: const EdgeInsets.all(1),
+      padding: const EdgeInsets.all(10),
+      child: TextFormField(
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter deadline';
+          }
+          return null;
+        },
+        controller: deadlineEditingController,
+        decoration: InputDecoration(
+          hintText: task.title, //få till att hinttext syns
+          contentPadding:
+              new EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.indigo, width: 1.0),
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.indigo, width: 1.0),
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+        ),
       ),
     );
   }
 
   Widget editDescriptionBox() {
-    return TextFormField(
-      controller: descriptionEditingController,
-      decoration: InputDecoration(
-        border: const OutlineInputBorder(),
-        hintText: task.description,
+    return Container(
+      margin: const EdgeInsets.all(1),
+      padding: const EdgeInsets.all(10),
+      child: TextFormField(
+        controller: descriptionEditingController,
+        decoration: InputDecoration(
+          hintText: task.title, //få till att hinttext syns
+          contentPadding:
+              new EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.indigo, width: 1.0),
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.indigo, width: 1.0),
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+        ),
       ),
     );
   }
