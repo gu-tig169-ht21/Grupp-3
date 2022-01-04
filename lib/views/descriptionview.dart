@@ -40,6 +40,7 @@ class DescriptionViewState extends State<DescriptionView> {
               if (updatedItem != null) {
                 Provider.of<MyState>(context, listen: false)
                     .updateTask(updatedItem);
+                Navigator.pop(context);
               }
             },
             child: Text('Ändra', style: TextStyle(color: Colors.white)),

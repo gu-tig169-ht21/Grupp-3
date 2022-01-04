@@ -69,20 +69,40 @@ class AddTaskViewState extends State<AddTaskView> {
           ),
         ],
       ),
-      body: Form(
-        key: _formKey,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(height: 30),
-              titleBox(),
-              Container(height: 20),
-              deadlineBox(),
-              Container(height: 20),
-              descriptionBox(),
-            ],
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(left: 23),
+                  margin: const EdgeInsets.only(top: 30),
+                  child: const Text('Add title',
+                      style:
+                          TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+                ),
+                titleBox(),
+                Container(
+                  padding: const EdgeInsets.only(left: 23),
+                  margin: const EdgeInsets.only(top: 30),
+                  child: const Text('Add deadline',
+                      style:
+                          TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+                ),
+                deadlineBox(),
+                Container(
+                  padding: const EdgeInsets.only(left: 23),
+                  margin: const EdgeInsets.only(top: 30),
+                  child: const Text('Add description',
+                      style:
+                          TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+                ),
+                descriptionBox(),
+              ],
+            ),
           ),
         ),
       ),
@@ -90,39 +110,83 @@ class AddTaskViewState extends State<AddTaskView> {
   }
 
   Widget titleBox() {
-    return TextFormField(
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter title';
-        }
-        return null;
-      },
-      controller: titleEditingController,
-      decoration: const InputDecoration(
-          border: OutlineInputBorder(), hintText: 'Add new task'),
+    return Container(
+      margin: const EdgeInsets.all(1),
+      padding: const EdgeInsets.all(10),
+      child: TextFormField(
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter title';
+          }
+          return null;
+        },
+        controller: titleEditingController,
+        decoration: InputDecoration(
+          contentPadding:
+              new EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
+          hintText: 'Add new task',
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.indigo, width: 1.0),
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.indigo, width: 1.0),
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+        ),
+      ),
     );
   }
 
   Widget deadlineBox() {
-    return TextFormField(
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter deadline';
-        }
-        return null;
-      },
-      controller: deadlineEditingController,
-      decoration: const InputDecoration(
-          border: OutlineInputBorder(), hintText: 'Add new deadline'),
+    return Container(
+      margin: const EdgeInsets.all(1),
+      padding: const EdgeInsets.all(10),
+      child: TextFormField(
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter deadline';
+          }
+          return null;
+        },
+        controller: deadlineEditingController,
+        decoration: InputDecoration(
+          contentPadding:
+              new EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
+          hintText: 'Add deadline',
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.indigo, width: 1.0),
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.indigo, width: 1.0),
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+        ),
+      ),
     );
   }
 
   Widget descriptionBox() {
-    return TextFormField(
-      controller: descriptionEditingController,
-      decoration: const InputDecoration(
-          border: OutlineInputBorder(),
-          hintText: 'Add new description (optional)'),
+    return Container(
+      margin: const EdgeInsets.all(1),
+      padding: const EdgeInsets.all(10),
+      child: TextFormField(
+        controller: descriptionEditingController,
+        decoration: InputDecoration(
+          contentPadding:
+              new EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
+          hintText: 'Add description (optional)',
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.indigo, width: 1.0),
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.indigo, width: 1.0),
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+        ),
+      ),
     );
 
     //Lägg till val av färg
