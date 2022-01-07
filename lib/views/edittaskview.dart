@@ -128,7 +128,6 @@ class EditTaskViewState extends State<EditTaskView> {
         },
         controller: titleEditingController,
         decoration: InputDecoration(
-          hintText: title, //få till att hinttext syns
           contentPadding:
               new EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
           enabledBorder: OutlineInputBorder(
@@ -157,7 +156,6 @@ class EditTaskViewState extends State<EditTaskView> {
         },
         controller: deadlineEditingController,
         decoration: InputDecoration(
-          hintText: task.deadline, //få till att hinttext syns
           contentPadding:
               new EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
           enabledBorder: OutlineInputBorder(
@@ -180,7 +178,6 @@ class EditTaskViewState extends State<EditTaskView> {
       child: TextFormField(
         controller: descriptionEditingController,
         decoration: InputDecoration(
-          hintText: description, //få till att hinttext syns
           contentPadding:
               new EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
           enabledBorder: OutlineInputBorder(
