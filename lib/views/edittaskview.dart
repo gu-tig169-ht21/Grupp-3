@@ -29,6 +29,9 @@ class EditTaskViewState extends State<EditTaskView> {
     this.title = task.title;
     this.deadline = task.deadline;
     this.description = task.description;
+    titleEditingController.text = task.title;
+    deadlineEditingController.text = task.deadline;
+    descriptionEditingController.text = task.description;
 
     titleEditingController.addListener(() {
       setState(() {
@@ -125,7 +128,7 @@ class EditTaskViewState extends State<EditTaskView> {
         },
         controller: titleEditingController,
         decoration: InputDecoration(
-          hintText: task.title, //få till att hinttext syns
+          hintText: title, //få till att hinttext syns
           contentPadding:
               new EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
           enabledBorder: OutlineInputBorder(
@@ -154,7 +157,7 @@ class EditTaskViewState extends State<EditTaskView> {
         },
         controller: deadlineEditingController,
         decoration: InputDecoration(
-          hintText: task.title, //få till att hinttext syns
+          hintText: task.deadline, //få till att hinttext syns
           contentPadding:
               new EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
           enabledBorder: OutlineInputBorder(
@@ -177,7 +180,7 @@ class EditTaskViewState extends State<EditTaskView> {
       child: TextFormField(
         controller: descriptionEditingController,
         decoration: InputDecoration(
-          hintText: task.title, //få till att hinttext syns
+          hintText: description, //få till att hinttext syns
           contentPadding:
               new EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
           enabledBorder: OutlineInputBorder(

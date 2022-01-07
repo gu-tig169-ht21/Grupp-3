@@ -18,6 +18,7 @@ class AddTaskViewState extends State<AddTaskView> {
   String deadline = '';
   String? description = '';
   final _formKey = GlobalKey<FormState>();
+  DateTime? _chosenDateTime;
 
   TextEditingController titleEditingController = TextEditingController();
   TextEditingController deadlineEditingController = TextEditingController();
@@ -153,7 +154,7 @@ class AddTaskViewState extends State<AddTaskView> {
         decoration: InputDecoration(
           contentPadding:
               new EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
-          hintText: 'Add deadline',
+          hintText: 'yy/mm/dd',
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.indigo, width: 1.0),
             borderRadius: BorderRadius.circular(20.0),
