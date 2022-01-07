@@ -34,9 +34,9 @@ class DescriptionViewState extends State<DescriptionView> {
                   MaterialPageRoute(
                       builder: (context) => EditTaskView((TaskItem(
                           id: task.id,
-                          title: '',
-                          deadline: '',
-                          description: '')))));
+                          title: task.title,
+                          deadline: task.deadline,
+                          description: task.description)))));
               if (updatedItem != null) {
                 Provider.of<MyState>(context, listen: false)
                     .updateTask(updatedItem);
