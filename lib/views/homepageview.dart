@@ -18,21 +18,33 @@ class HomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             _logo(),
-            Container(height: 30),
+            Container(height: 40),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => FirstTimerView()));
               },
               child: const Text('PLUGGA'),
+              style: ElevatedButton.styleFrom(
+                  textStyle: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.bold),
+                  fixedSize: const Size(180, 70),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50))),
             ),
-            Container(height: 25),
+            Container(height: 35),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const TaskView()));
               },
               child: const Text('UPPGIFTER'),
+              style: ElevatedButton.styleFrom(
+                  textStyle: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.bold),
+                  fixedSize: const Size(180, 70),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50))),
             ),
           ],
         ),
@@ -55,7 +67,7 @@ class HomePage extends StatelessWidget {
                 color: Colors.blueGrey,
                 width: 2,
               ),
-              borderRadius: BorderRadius.circular(95),
+              shape: BoxShape.circle,
             )),
           ),
         ),
