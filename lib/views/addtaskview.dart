@@ -18,7 +18,6 @@ class AddTaskViewState extends State<AddTaskView> {
   String deadline = '';
   String? description = '';
   final _formKey = GlobalKey<FormState>();
-  DateTime? _chosenDateTime;
 
   TextEditingController titleEditingController = TextEditingController();
   TextEditingController deadlineEditingController = TextEditingController();
