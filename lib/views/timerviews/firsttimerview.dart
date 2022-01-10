@@ -77,7 +77,6 @@ class _FirstTimerView extends State<FirstTimerView> {
       body: Center(
         child: Column(
           children: [
-            timerNavigationWidget(context),
             SizedBox(
               height: 200,
             ),
@@ -86,6 +85,10 @@ class _FirstTimerView extends State<FirstTimerView> {
               height: 20,
             ),
             stopWidget(),
+            SizedBox(
+              height: 150,
+            ),
+            timerNavigationWidget(context),
           ],
         ),
       ),

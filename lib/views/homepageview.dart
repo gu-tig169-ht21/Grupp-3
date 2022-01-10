@@ -30,7 +30,7 @@ class HomePage extends StatelessWidget {
                       fontSize: 18, fontWeight: FontWeight.bold),
                   fixedSize: const Size(180, 70),
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50))),
+                      borderRadius: BorderRadius.circular(15))),
             ),
             Container(height: 35),
             ElevatedButton(
@@ -44,7 +44,7 @@ class HomePage extends StatelessWidget {
                       fontSize: 18, fontWeight: FontWeight.bold),
                   fixedSize: const Size(180, 70),
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50))),
+                      borderRadius: BorderRadius.circular(15))),
             ),
           ],
         ),
