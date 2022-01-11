@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_first_app/views/timerviews/informationview.dart';
 import 'package:my_first_app/views/timerviews/secondtimerview.dart';
+import 'package:ndialog/ndialog.dart';
 import 'timerbuttons.dart';
 
 class FirstTimerView extends StatefulWidget {
@@ -11,7 +12,7 @@ class FirstTimerView extends StatefulWidget {
 }
 
 class _FirstTimerView extends State<FirstTimerView> {
-  static const countDownDuration = Duration(minutes: 25, seconds: 0);
+  static const countDownDuration = Duration(minutes: 0, seconds: 5);
   Duration duration = countDownDuration;
 
   Timer? timer;
@@ -41,6 +42,7 @@ class _FirstTimerView extends State<FirstTimerView> {
       final seconds = duration.inSeconds + addSeconds;
       if (seconds < 0) {
         timer?.cancel();
+        finishedTimer();
       } else {
         duration = Duration(seconds: seconds);
       }
@@ -53,6 +55,27 @@ class _FirstTimerView extends State<FirstTimerView> {
     }
     setState(() => timer?.cancel());
   }
+
+  void finishedTimer() async {
+    await NDialog(
+      dialogStyle: DialogStyle(titleDivider: true),
+      title: Text("Timer Completed"),
+      content: Text("Time for a break."),
+      actions: <Widget>[
+        ElevatedButton(
+            style: ButtonStyle(
+              backgroundColor:
+                  MaterialStateColor.resolveWith((states) => Colors.blue),
+            ),
+            child: Text("Close"), 
+            onPressed: () {
+              Navigator.pop(context);
+              reset();
+            }),
+      ],
+    ).show(context);
+  }
+
 
   @override
   Widget build(BuildContext context) {

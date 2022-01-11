@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_first_app/views/homepageview.dart';
+import 'package:ndialog/ndialog.dart';
 import 'informationview.dart';
 import 'timerbuttons.dart';
 
@@ -11,7 +12,7 @@ class ThirdTimerView extends StatefulWidget {
 }
 
 class _ThirdTimerView extends State<ThirdTimerView> {
-  static const countDownDuration = Duration(minutes: 15, seconds: 0);
+  static const countDownDuration = Duration(minutes: 0, seconds: 3);
   Duration duration = countDownDuration;
 
   Timer? timer;
@@ -41,6 +42,7 @@ class _ThirdTimerView extends State<ThirdTimerView> {
       final seconds = duration.inSeconds + addSeconds;
       if (seconds < 0) {
         timer?.cancel();
+        finishedTimer();
       } else {
         duration = Duration(seconds: seconds);
       }
@@ -52,6 +54,26 @@ class _ThirdTimerView extends State<ThirdTimerView> {
       reset();
     }
     setState(() => timer?.cancel());
+  }
+
+  void finishedTimer() async {
+    await NDialog(
+      dialogStyle: DialogStyle(titleDivider: true),
+      title: Text("Timer Completed"),
+      content: Text("Congrats, you have now finished the set!"),
+      actions: <Widget>[
+        ElevatedButton(
+            style: ButtonStyle(
+              backgroundColor:
+                  MaterialStateColor.resolveWith((states) => Colors.blue),
+            ),
+            child: Text("Close"), 
+            onPressed: () {
+              Navigator.pop(context);
+              reset();
+            }),
+      ],
+    ).show(context);
   }
 
   @override
