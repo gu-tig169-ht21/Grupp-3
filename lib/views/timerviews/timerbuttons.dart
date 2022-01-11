@@ -31,49 +31,6 @@ class MainTimerButton extends StatelessWidget {
       );
 }
 
-Widget timerNavigationWidget(context) {
-  return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-    ElevatedButton(
-      style: ElevatedButton.styleFrom(
-          fixedSize: const Size(100, 35),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-      onPressed: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => FirstTimerView()));
-      },
-      child: const Text('Pluggtimer',
-          style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700)),
-    ),
-    Container(width: 10),
-    ElevatedButton(
-      style: ElevatedButton.styleFrom(
-          fixedSize: const Size(100, 35),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-      onPressed: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => SecondTimerView()));
-      },
-      child: const Text('Kort rast',
-          style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700)),
-    ),
-    Container(width: 10),
-    ElevatedButton(
-      style: ElevatedButton.styleFrom(
-          fixedSize: const Size(100, 35),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-      onPressed: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ThirdTimerView()));
-      },
-      child: const Text('Lång rast',
-          style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700)),
-    ),
-  ]);
-}
-
 Widget timeWidgetCard({required String time, required String header}) => Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [

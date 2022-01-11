@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_first_app/views/taskview.dart';
+import 'package:my_first_app/views/timerviews/maintimerview.dart';
 import 'timerviews/firsttimerview.dart';
 
 class HomePage extends StatelessWidget {
@@ -22,7 +23,7 @@ class HomePage extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => FirstTimerView()));
+                    MaterialPageRoute(builder: (context) => MainTimerView()));
               },
               child: const Text('PLUGGA'),
               style: ElevatedButton.styleFrom(

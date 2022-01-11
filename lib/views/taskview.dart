@@ -23,6 +23,7 @@ class TaskView extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
+        // backgroundColor: Colors.blue.shade800,
         onPressed: () async {
           var newItem = await Navigator.push(
               context,
@@ -76,9 +77,9 @@ Widget _taskItem(context, TaskItem task) {
   var state = Provider.of<MyState>(context, listen: false);
   return ListTile(
     leading: Icon(
-      Icons.group_work_rounded,
+      Icons.note_alt_sharp,
       size: 30,
-      color: Colors.orange,
+      color: Colors.blue.shade800,
     ),
     onTap: () => Navigator.push(context,
         MaterialPageRoute(builder: (context) => DescriptionView(task))),

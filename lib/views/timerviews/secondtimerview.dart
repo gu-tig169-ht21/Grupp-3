@@ -60,24 +60,9 @@ class _SecondTimerView extends State<SecondTimerView> {
       minimumSize: const Size(20.0, 20.0),
     );
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('Plugga med Pomodoro'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.info_outline_rounded,
-                color: Colors.white, size: 35),
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => InformationView()));
-            },
-          ),
-        ],
-      ),
       body: Center(
         child: Column(
           children: [
-            timerNavigationWidget(context),
             SizedBox(
               height: 200,
             ),
