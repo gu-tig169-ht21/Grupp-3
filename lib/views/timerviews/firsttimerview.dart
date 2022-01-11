@@ -1,24 +1,25 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:my_first_app/views/timerviews/informationview.dart';
-import 'package:my_first_app/views/timerviews/secondtimerview.dart';
 import 'package:ndialog/ndialog.dart';
 import 'timerbuttons.dart';
 
 class FirstTimerView extends StatefulWidget {
+  const FirstTimerView({Key? key}) : super(key: key);
+
   @override
   State<FirstTimerView> createState() => _FirstTimerView();
 }
 
 class _FirstTimerView extends State<FirstTimerView> {
-  static const countDownDuration = Duration(minutes: 0, seconds: 5);
+  static const countDownDuration =
+      Duration(minutes: 0, seconds: 3); // KOM IHÅG ATT ÄNDRA TILL 25 MINUTER
   Duration duration = countDownDuration;
 
   Timer? timer;
 
   bool countDown = true;
-  @override
+
   void initstate() {
     super.initState();
     reset();
@@ -28,12 +29,12 @@ class _FirstTimerView extends State<FirstTimerView> {
     if (countDown) {
       setState(() => duration = countDownDuration);
     } else {
-      setState(() => duration = Duration());
+      setState(() => duration = const Duration());
     }
   }
 
   void startTimer() {
-    timer = Timer.periodic(Duration(seconds: 1), (_) => addTime());
+    timer = Timer.periodic(const Duration(seconds: 1), (_) => addTime());
   }
 
   void addTime() {
@@ -59,15 +60,18 @@ class _FirstTimerView extends State<FirstTimerView> {
   void finishedTimer() async {
     await NDialog(
       dialogStyle: DialogStyle(titleDivider: true),
-      title: Text("Timer Completed"),
-      content: Text("Time for a break."),
+      title: const Icon(Icons.alarm_on),
+      content: const Text(
+        'Time for a break',
+        textAlign: TextAlign.center,
+      ),
       actions: <Widget>[
         ElevatedButton(
             style: ButtonStyle(
               backgroundColor:
                   MaterialStateColor.resolveWith((states) => Colors.blue),
             ),
-            child: Text("Close"), 
+            child: const Text('Close'),
             onPressed: () {
               Navigator.pop(context);
               reset();
@@ -76,18 +80,17 @@ class _FirstTimerView extends State<FirstTimerView> {
     ).show(context);
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 200,
             ),
             timeWidget(),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             stopWidget(),
@@ -106,12 +109,12 @@ class _FirstTimerView extends State<FirstTimerView> {
       children: [
         timeWidgetCard(
           time: minutes,
-          header: 'Minuter  /',
+          header: 'Minutes  /',
         ),
-        SizedBox(width: 7),
+        const SizedBox(width: 7),
         timeWidgetCard(
           time: seconds,
-          header: 'Sekunder',
+          header: 'Seconds',
         )
       ],
     );
@@ -123,7 +126,7 @@ class _FirstTimerView extends State<FirstTimerView> {
     return isLive || isDone
         ? Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             MainTimerButton(
-                text: 'Pausa',
+                text: 'Pause',
                 color: Colors.blue.shade800,
                 backgroundColor: Colors.grey.shade200,
                 onClicked: () {
@@ -131,9 +134,9 @@ class _FirstTimerView extends State<FirstTimerView> {
                     stopTimer(resets: false);
                   }
                 }),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             MainTimerButton(
-                text: 'Avbryt',
+                text: 'Cancel',
                 color: Colors.grey.shade200,
                 backgroundColor: Colors.blue.shade800,
                 onClicked: () {
@@ -141,7 +144,7 @@ class _FirstTimerView extends State<FirstTimerView> {
                 })
           ])
         : MainTimerButton(
-            text: 'Starta Timer',
+            text: 'Start Timer',
             color: Colors.grey.shade200,
             backgroundColor: Colors.blue.shade800,
             onClicked: () {
