@@ -19,41 +19,16 @@ class MainTimerButton extends StatelessWidget {
   Widget build(BuildContext context) => ElevatedButton(
         style: ElevatedButton.styleFrom(
             primary: backgroundColor,
-            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 17)),
+            fixedSize: const Size(180, 70),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15))),
         onPressed: onClicked,
         child: Text(
           text,
-          style: TextStyle(fontSize: 21, color: color),
+          style: TextStyle(
+              fontSize: 21, color: color, fontWeight: FontWeight.bold),
         ),
       );
-}
-
-Widget timerNavigationWidget(context) {
-  return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-    ElevatedButton(
-      onPressed: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => FirstTimerView()));
-      },
-      child: const Text('Pluggtimer'),
-    ),
-    Container(width: 10),
-    ElevatedButton(
-      onPressed: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => SecondTimerView()));
-      },
-      child: const Text('Kort rast'),
-    ),
-    Container(width: 10),
-    ElevatedButton(
-      onPressed: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ThirdTimerView()));
-      },
-      child: const Text('Lång rast'),
-    ),
-  ]);
 }
 
 Widget timeWidgetCard({required String time, required String header}) => Column(
