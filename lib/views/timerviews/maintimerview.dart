@@ -5,6 +5,7 @@ import 'informationview.dart';
 import 'secondtimerview.dart';
 import 'thirdtimerview.dart';
 
+//Huvudsidan för pluggtimer
 class MainTimerView extends StatelessWidget {
   const MainTimerView({Key? key}) : super(key: key);
 
@@ -14,7 +15,7 @@ class MainTimerView extends StatelessWidget {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          bottom: const TabBar(
+          bottom: const TabBar( //Valbara tabs
             tabs: [
               Tab(text: 'Study'),
               Tab(text: 'Short break'),
@@ -31,13 +32,14 @@ class MainTimerView extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const InformationView()));
+                        builder: (context) => const InformationView())); //Knapp till Infosida
               },
             ),
           ],
         ),
+        //Navigation till de olika timersidorna
         body: const TabBarView(children: [
-          Center(child: FirstTimerView()),
+          Center(child: FirstTimerView()), 
           Center(child: SecondTimerView()),
           Center(child: ThirdTimerView()),
         ]),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_first_app/views/taskviews/taskview.dart';
 import 'package:my_first_app/views/timerviews/maintimerview.dart';
 
+//Förstasidan i appen
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -54,6 +55,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
+  //Bild på ugglan
   Widget _logo() {
     return Stack(
       children: [

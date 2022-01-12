@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:ndialog/ndialog.dart';
 import 'timerbuttons.dart';
 
+//Timer på 15 minuter
 class ThirdTimerView extends StatefulWidget {
   const ThirdTimerView({Key? key}) : super(key: key);
 
@@ -14,17 +15,46 @@ class ThirdTimerView extends StatefulWidget {
 class _ThirdTimerView extends State<ThirdTimerView> {
   static const countDownDuration =
       Duration(minutes: 0, seconds: 3); // KOM IHÅG ATT ÄNDRA TILL 15 MINUTER
-  Duration duration = countDownDuration;
+  Duration duration = countDownDuration; //Delar upp tidsspann i minuter och sekunder med hjälp av raden ovanför
 
-  Timer? timer;
+  Timer? timer; //Inbyggd timer i flutter som räknar ner till 0
 
-  bool countDown = true;
+  bool countDown = true; //Deklararer att countdown är en boolean
 
-  void initstate() {
+  //Initierar state för att kunna setState
+  void initstate() { 
     super.initState();
     reset();
   }
 
+  //Startar timer
+  void startTimer() {
+    timer = Timer.periodic(const Duration(seconds: 1), (_) => addTime());
+  }
+
+  //Nedräknarfunktion
+  void addTime() {
+    final addSeconds = countDown ? -1 : 1; //Ser till att en sekund alltid försvinner
+    setState(() {
+      final seconds = duration.inSeconds + addSeconds;
+      if (seconds < 0) { //När seconds blir mindre än 0 stannar timern
+        timer?.cancel();
+        finishedTimer();
+      } else { //Annars fortsätter timern
+        duration = Duration(seconds: seconds);
+      }
+    });
+  }
+
+  //Avbryter timern och Pausar timern om resets är false
+  void stopTimer({bool resets = true}) {
+    if (resets) {
+      reset();
+    }
+    setState(() => timer?.cancel());
+  }
+
+  //Återställer värdet på timer
   void reset() {
     if (countDown) {
       setState(() => duration = countDownDuration);
@@ -33,30 +63,7 @@ class _ThirdTimerView extends State<ThirdTimerView> {
     }
   }
 
-  void startTimer() {
-    timer = Timer.periodic(const Duration(seconds: 1), (_) => addTime());
-  }
-
-  void addTime() {
-    final addSeconds = countDown ? -1 : 1;
-    setState(() {
-      final seconds = duration.inSeconds + addSeconds;
-      if (seconds < 0) {
-        timer?.cancel();
-        finishedTimer();
-      } else {
-        duration = Duration(seconds: seconds);
-      }
-    });
-  }
-
-  void stopTimer({bool resets = true}) {
-    if (resets) {
-      reset();
-    }
-    setState(() => timer?.cancel());
-  }
-
+  //Dialogruta när timern är klar. Används i addTime när timern nått 0
   void finishedTimer() async {
     await NDialog(
       dialogStyle: DialogStyle(titleDivider: true),
@@ -100,6 +107,7 @@ class _ThirdTimerView extends State<ThirdTimerView> {
     );
   }
 
+  //Här är uppbyggnaden för nedräkningsknapparna i timern
   Widget timeWidget() {
     String twoNumbers(int number) => number.toString().padLeft(2, '0');
     final minutes = twoNumbers(duration.inMinutes.remainder(60));
@@ -120,6 +128,7 @@ class _ThirdTimerView extends State<ThirdTimerView> {
     );
   }
 
+  //Hur nedräkningen ska reagera beroende på state
   Widget stopWidget() {
     final isLive = timer == null ? false : timer!.isActive;
     final isDone = duration.inSeconds == 0;
@@ -131,7 +140,7 @@ class _ThirdTimerView extends State<ThirdTimerView> {
                 backgroundColor: Colors.grey.shade200,
                 onClicked: () {
                   if (isLive) {
-                    stopTimer(resets: false);
+                    stopTimer(resets: false); //Stoppar timern utan att reseta
                   }
                 }),
             const SizedBox(width: 10),
@@ -140,7 +149,7 @@ class _ThirdTimerView extends State<ThirdTimerView> {
                 color: Colors.grey.shade200,
                 backgroundColor: Colors.blue.shade800,
                 onClicked: () {
-                  stopTimer();
+                  stopTimer(); //Stoppar och resetar timern
                 })
           ])
         : MainTimerButton(
@@ -148,7 +157,7 @@ class _ThirdTimerView extends State<ThirdTimerView> {
             color: Colors.grey.shade200,
             backgroundColor: Colors.blue.shade800,
             onClicked: () {
-              startTimer();
+              startTimer(); //Timern startas
             });
   }
 }

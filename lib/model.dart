@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
+//TaskItem definerar innehållet av en uppgift
 class TaskItem {
   String id; //varje task behöver ett id
   String title; //varje task behöver en title
@@ -13,6 +14,7 @@ class TaskItem {
       required this.deadline,
       this.description});
 
+  //Kopplar ihop vad olika värden mellan Dart och Firebase
   Map<String, dynamic> createMap() {
     return {
       'id': id,
@@ -22,6 +24,7 @@ class TaskItem {
     };
   }
 
+  //Här konverteras värdet från JSON till Dart
   TaskItem.fromIdAndJson(String idFromFirebase, Map<String, dynamic> parsedJSON)
       : id = idFromFirebase,
         title = parsedJSON['title'],
@@ -29,11 +32,13 @@ class TaskItem {
         description = parsedJSON['description'];
 }
 
+//Funktioner för när states förändras
 class MyState extends ChangeNotifier {
   final List<TaskItem> _list = [];
 
   List<TaskItem> get list => _list;
 
+  //Hämtar tasks från Firebase
   Stream<List<TaskItem>> getTasks() {
     return FirebaseFirestore.instance
         .collection('TaskItem')
@@ -44,6 +49,7 @@ class MyState extends ChangeNotifier {
             }).toList());
   }
 
+  //Lägger till ny task till Firebase
   void addTask(TaskItem task) {
     FirebaseFirestore.instance.collection('TaskItem').add({
       'title': task.title,
@@ -52,6 +58,8 @@ class MyState extends ChangeNotifier {
     });
   }
 
+
+  //Tar bort tasks från Firebase
   Future<void> removeTask(TaskItem task) {
     return FirebaseFirestore.instance
         .collection('TaskItem')
@@ -61,6 +69,7 @@ class MyState extends ChangeNotifier {
         .catchError((error) => print('Failed to delete task: $error'));
   }
 
+  //Uppdaterar tasks i Firebase
   Future<void> updateTask(TaskItem task) {
     return FirebaseFirestore.instance
         .collection('TaskItem')

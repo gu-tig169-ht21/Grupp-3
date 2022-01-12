@@ -5,6 +5,7 @@ import '../../model.dart';
 import 'addtaskview.dart';
 import 'descriptionview.dart';
 
+//Första sidan för uppgifter
 class TaskView extends StatelessWidget {
   const TaskView({Key? key}) : super(key: key);
 
@@ -36,6 +37,7 @@ class TaskView extends StatelessWidget {
   }
 }
 
+//Hämtar och visar listan över alla uppgifter från Firebase
 class TaskList extends StatelessWidget {
   final List<TaskItem> list;
 
@@ -68,6 +70,7 @@ class TaskList extends StatelessWidget {
   }
 }
 
+//Uppbyggnaden för varje uppgiftsrad i listan
 Widget _taskItem(context, TaskItem task) {
   var state = Provider.of<MyState>(context, listen: false);
   return ListTile(

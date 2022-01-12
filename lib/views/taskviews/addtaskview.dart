@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../model.dart';
 
+//Sida för att lägga till en ny uppgift
 class AddTaskView extends StatefulWidget {
   final TaskItem task;
 
@@ -13,20 +14,24 @@ class AddTaskView extends StatefulWidget {
 }
 
 class AddTaskViewState extends State<AddTaskView> {
+  //Deklarerar variabler som en task består av, fylls i av användaren 
   String title = '';
   String deadline = '';
   String? description = '';
-  final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>(); //Kontrollerar att nödvändiga fält inte lämnas tomma, skickar felmeddelande
 
+  //Här skapas en texteditingcontroller för varje textfält
   TextEditingController titleEditingController = TextEditingController();
   TextEditingController deadlineEditingController = TextEditingController();
   TextEditingController descriptionEditingController = TextEditingController();
 
+  //Kopplar ihop title/deadline/description i denna fil med task i TaskItem
   AddTaskViewState(TaskItem task) {
     this.title = task.title;
     this.deadline = task.deadline;
     this.description = task.description;
 
+    //När en användare matar in text i de olika fälten så ändras värdet på title/deadline/description med hjälp av setState
     titleEditingController.addListener(() {
       setState(() {
         title = titleEditingController.text;
@@ -45,6 +50,7 @@ class AddTaskViewState extends State<AddTaskView> {
       });
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +60,7 @@ class AddTaskViewState extends State<AddTaskView> {
         actions: [
           ElevatedButton(
             onPressed: () {
-              if (_formKey.currentState!.validate()) {
+              if (_formKey.currentState!.validate()) { //Validerar att nödvändig information är ifylld
                 Navigator.pop(
                     context,
                     TaskItem(
@@ -109,13 +115,14 @@ class AddTaskViewState extends State<AddTaskView> {
     );
   }
 
+  //Fältet för att fylla i titeln
   Widget titleBox() {
     return Container(
       margin: const EdgeInsets.all(1),
       padding: const EdgeInsets.all(10),
       child: TextFormField(
         validator: (value) {
-          if (value == null || value.isEmpty) {
+          if (value == null || value.isEmpty) { //Kopplad till formkey
             return 'Please enter title';
           }
           return null;
@@ -138,13 +145,14 @@ class AddTaskViewState extends State<AddTaskView> {
     );
   }
 
+  //Fältet för att fylla i deadline
   Widget deadlineBox() {
     return Container(
       margin: const EdgeInsets.all(1),
       padding: const EdgeInsets.all(10),
       child: TextFormField(
         validator: (value) {
-          if (value == null || value.isEmpty) {
+          if (value == null || value.isEmpty) { //Kopplad till formkey
             return 'Please enter deadline';
           }
           return null;
@@ -167,6 +175,7 @@ class AddTaskViewState extends State<AddTaskView> {
     );
   }
 
+  //Fältet för att fylla i description
   Widget descriptionBox() {
     return Container(
       margin: const EdgeInsets.all(1),

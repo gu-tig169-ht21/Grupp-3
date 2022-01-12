@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'model.dart';
-import 'views/taskviews/homepageview.dart';
+import 'homepageview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
   var state = MyState();
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized(); //Uppstart av firebase
   await Firebase.initializeApp();
 
-  runApp(
+  //Kör app
+  runApp(                                     
     ChangeNotifierProvider(
       create: (context) => state,
       child: const MyApp(),

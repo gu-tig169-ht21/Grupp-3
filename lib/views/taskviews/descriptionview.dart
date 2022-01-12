@@ -4,6 +4,7 @@ import 'package:my_first_app/model.dart';
 import 'package:my_first_app/views/taskviews/edittaskview.dart';
 import 'package:provider/provider.dart';
 
+////Sida för att granska en uppgift
 class DescriptionView extends StatefulWidget {
   final task;
   const DescriptionView(this.task);
@@ -27,15 +28,15 @@ class DescriptionViewState extends State<DescriptionView> {
         actions: [
           ElevatedButton(
             onPressed: () async {
-              var updatedItem = await Navigator.push(
+              var updatedItem = await Navigator.push( 
                   context,
                   MaterialPageRoute(
-                      builder: (context) => EditTaskView((TaskItem(
+                      builder: (context) => EditTaskView((TaskItem( //Koppling till värdena i TaskItem
                           id: task.id,
                           title: task.title,
                           deadline: task.deadline,
                           description: task.description)))));
-              if (updatedItem != null) {
+              if (updatedItem != null) { //När en uppgift är ändrad uppdateras den
                 Provider.of<MyState>(context, listen: false)
                     .updateTask(updatedItem);
                 Navigator.pop(context);
@@ -78,6 +79,7 @@ class DescriptionViewState extends State<DescriptionView> {
     );
   }
 
+  //Fältet för att visa titeln
   Widget titleViewWidget() {
     return Container(
       margin: const EdgeInsets.all(10),
@@ -91,6 +93,7 @@ class DescriptionViewState extends State<DescriptionView> {
     );
   }
 
+  //Fältet för att visa deadline
   Widget deadlineViewWidget() {
     return Container(
       margin: const EdgeInsets.all(10),
@@ -104,6 +107,7 @@ class DescriptionViewState extends State<DescriptionView> {
     );
   }
 
+  //Fältet för att visa description
   Widget descriptionViewWidget() {
     return Container(
       margin: const EdgeInsets.all(10),

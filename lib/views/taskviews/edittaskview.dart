@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../model.dart';
 
+////Sida för att ändra i en uppgift
 class EditTaskView extends StatefulWidget {
   final TaskItem task;
 
@@ -13,24 +14,29 @@ class EditTaskView extends StatefulWidget {
 }
 
 class EditTaskViewState extends State<EditTaskView> {
+  //Deklarerar variabler som en task består av, fylls i av användaren 
   String title = '';
   String deadline = '';
   String? description = '';
-  final _formKey = GlobalKey<FormState>();
-  final task;
+  final _formKey = GlobalKey<FormState>(); //Kontrollerar att nödvändiga fält inte lämnas tomma, skickar felmeddelande
+  final task; //Kopplar vad som tidigare sparats i tasks
 
+  //Här skapas en texteditingcontroller för varje textfält
   TextEditingController titleEditingController = TextEditingController();
   TextEditingController deadlineEditingController = TextEditingController();
   TextEditingController descriptionEditingController = TextEditingController();
 
-  EditTaskViewState(this.task) {
+  //Kopplar ihop title/deadline/description i denna fil med en redan sparad task
+  EditTaskViewState(this.task) { 
     this.title = task.title;
     this.deadline = task.deadline;
     this.description = task.description;
+  //Visar vad som redan är ifyllt från en redan sparad task
     titleEditingController.text = task.title;
     deadlineEditingController.text = task.deadline;
     descriptionEditingController.text = task.description;
 
+  //När en användare matar in text i de olika fälten så ändras värdet på title/deadline/description med hjälp av setState
     titleEditingController.addListener(() {
       setState(() {
         title = titleEditingController.text;
@@ -59,7 +65,7 @@ class EditTaskViewState extends State<EditTaskView> {
         actions: [
           ElevatedButton(
             onPressed: () {
-              if (_formKey.currentState!.validate()) {
+              if (_formKey.currentState!.validate()) { //Validerar att nödvändig information är ifylld
                 Navigator.pop(
                     context,
                     TaskItem(
@@ -114,13 +120,14 @@ class EditTaskViewState extends State<EditTaskView> {
     );
   }
 
+  //Fältet för att ändra i titeln
   Widget editTitleBox() {
     return Container(
       margin: const EdgeInsets.all(1),
       padding: const EdgeInsets.all(10),
       child: TextFormField(
         validator: (value) {
-          if (value == null || value.isEmpty) {
+          if (value == null || value.isEmpty) { //Kopplad till formkey
             return 'Please enter title';
           }
           return null;
@@ -142,13 +149,14 @@ class EditTaskViewState extends State<EditTaskView> {
     );
   }
 
+  //Fältet för att ändra i deadline
   Widget editDeadlineBox() {
     return Container(
       margin: const EdgeInsets.all(1),
       padding: const EdgeInsets.all(10),
       child: TextFormField(
         validator: (value) {
-          if (value == null || value.isEmpty) {
+          if (value == null || value.isEmpty) { //Kopplad till formkey
             return 'Please enter deadline';
           }
           return null;
@@ -170,6 +178,7 @@ class EditTaskViewState extends State<EditTaskView> {
     );
   }
 
+  //Fältet för att ändra i description
   Widget editDescriptionBox() {
     return Container(
       margin: const EdgeInsets.all(1),

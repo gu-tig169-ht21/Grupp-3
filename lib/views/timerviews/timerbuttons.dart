@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//Utseende för start/paus/cancel knapparna 
 class MainTimerButton extends StatelessWidget {
   final String text;
   final Color color;
@@ -30,6 +31,7 @@ class MainTimerButton extends StatelessWidget {
       );
 }
 
+//Utseende för nedräkningsrutorna
 Widget timeWidgetCard({required String time, required String header}) => Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
