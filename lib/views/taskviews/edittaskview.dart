@@ -1,31 +1,35 @@
 import 'package:flutter/material.dart';
-import '../model.dart';
+import '../../model.dart';
 
-class AddTaskView extends StatefulWidget {
+class EditTaskView extends StatefulWidget {
   final TaskItem task;
 
-  const AddTaskView(this.task);
+  const EditTaskView(this.task);
 
   @override
-  State<StatefulWidget> createState() {
-    return AddTaskViewState(task);
+  State<EditTaskView> createState() {
+    return EditTaskViewState(task);
   }
 }
 
-class AddTaskViewState extends State<AddTaskView> {
+class EditTaskViewState extends State<EditTaskView> {
   String title = '';
   String deadline = '';
   String? description = '';
   final _formKey = GlobalKey<FormState>();
+  final task;
 
   TextEditingController titleEditingController = TextEditingController();
   TextEditingController deadlineEditingController = TextEditingController();
   TextEditingController descriptionEditingController = TextEditingController();
 
-  AddTaskViewState(TaskItem task) {
+  EditTaskViewState(this.task) {
     this.title = task.title;
     this.deadline = task.deadline;
     this.description = task.description;
+    titleEditingController.text = task.title;
+    deadlineEditingController.text = task.deadline;
+    descriptionEditingController.text = task.description;
 
     titleEditingController.addListener(() {
       setState(() {
@@ -45,12 +49,13 @@ class AddTaskViewState extends State<AddTaskView> {
       });
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Add task'),
+        title: const Text('Edit assignment'),
         actions: [
           ElevatedButton(
             onPressed: () {
@@ -58,7 +63,7 @@ class AddTaskViewState extends State<AddTaskView> {
                 Navigator.pop(
                     context,
                     TaskItem(
-                        id: '',
+                        id: task.id,
                         title: title,
                         deadline: deadline,
                         description: description));
@@ -80,27 +85,27 @@ class AddTaskViewState extends State<AddTaskView> {
                 Container(
                   padding: const EdgeInsets.only(left: 23),
                   margin: const EdgeInsets.only(top: 30),
-                  child: const Text('Add title',
+                  child: const Text('Title',
                       style:
                           TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
                 ),
-                titleBox(),
+                editTitleBox(),
                 Container(
                   padding: const EdgeInsets.only(left: 23),
-                  margin: const EdgeInsets.only(top: 30),
-                  child: const Text('Add deadline',
+                  margin: const EdgeInsets.only(top: 20),
+                  child: const Text('Deadline',
                       style:
                           TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
                 ),
-                deadlineBox(),
+                editDeadlineBox(),
                 Container(
                   padding: const EdgeInsets.only(left: 23),
-                  margin: const EdgeInsets.only(top: 30),
-                  child: const Text('Add description',
+                  margin: const EdgeInsets.only(top: 20),
+                  child: const Text('Description',
                       style:
                           TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
                 ),
-                descriptionBox(),
+                editDescriptionBox(),
               ],
             ),
           ),
@@ -109,7 +114,7 @@ class AddTaskViewState extends State<AddTaskView> {
     );
   }
 
-  Widget titleBox() {
+  Widget editTitleBox() {
     return Container(
       margin: const EdgeInsets.all(1),
       padding: const EdgeInsets.all(10),
@@ -124,7 +129,6 @@ class AddTaskViewState extends State<AddTaskView> {
         decoration: InputDecoration(
           contentPadding:
               const EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
-          hintText: 'Add new task',
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.indigo, width: 1.0),
             borderRadius: BorderRadius.circular(20.0),
@@ -138,7 +142,7 @@ class AddTaskViewState extends State<AddTaskView> {
     );
   }
 
-  Widget deadlineBox() {
+  Widget editDeadlineBox() {
     return Container(
       margin: const EdgeInsets.all(1),
       padding: const EdgeInsets.all(10),
@@ -153,7 +157,6 @@ class AddTaskViewState extends State<AddTaskView> {
         decoration: InputDecoration(
           contentPadding:
               const EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
-          hintText: 'yy/mm/dd',
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.indigo, width: 1.0),
             borderRadius: BorderRadius.circular(20.0),
@@ -167,7 +170,7 @@ class AddTaskViewState extends State<AddTaskView> {
     );
   }
 
-  Widget descriptionBox() {
+  Widget editDescriptionBox() {
     return Container(
       margin: const EdgeInsets.all(1),
       padding: const EdgeInsets.all(10),
@@ -176,7 +179,6 @@ class AddTaskViewState extends State<AddTaskView> {
         decoration: InputDecoration(
           contentPadding:
               const EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
-          hintText: 'Add description (optional)',
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.indigo, width: 1.0),
             borderRadius: BorderRadius.circular(20.0),

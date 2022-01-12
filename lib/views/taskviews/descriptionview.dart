@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_first_app/model.dart';
-import 'package:my_first_app/views/edittaskview.dart';
+import 'package:my_first_app/views/taskviews/edittaskview.dart';
 import 'package:provider/provider.dart';
 
 class DescriptionView extends StatefulWidget {

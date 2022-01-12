@@ -1,35 +1,31 @@
 import 'package:flutter/material.dart';
-import '../model.dart';
+import '../../model.dart';
 
-class EditTaskView extends StatefulWidget {
+class AddTaskView extends StatefulWidget {
   final TaskItem task;
 
-  const EditTaskView(this.task);
+  const AddTaskView(this.task);
 
   @override
-  State<EditTaskView> createState() {
-    return EditTaskViewState(task);
+  State<StatefulWidget> createState() {
+    return AddTaskViewState(task);
   }
 }
 
-class EditTaskViewState extends State<EditTaskView> {
+class AddTaskViewState extends State<AddTaskView> {
   String title = '';
   String deadline = '';
   String? description = '';
   final _formKey = GlobalKey<FormState>();
-  final task;
 
   TextEditingController titleEditingController = TextEditingController();
   TextEditingController deadlineEditingController = TextEditingController();
   TextEditingController descriptionEditingController = TextEditingController();
 
-  EditTaskViewState(this.task) {
+  AddTaskViewState(TaskItem task) {
     this.title = task.title;
     this.deadline = task.deadline;
     this.description = task.description;
-    titleEditingController.text = task.title;
-    deadlineEditingController.text = task.deadline;
-    descriptionEditingController.text = task.description;
 
     titleEditingController.addListener(() {
       setState(() {
@@ -49,13 +45,12 @@ class EditTaskViewState extends State<EditTaskView> {
       });
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Edit assignment'),
+        title: const Text('Add task'),
         actions: [
           ElevatedButton(
             onPressed: () {
@@ -63,14 +58,14 @@ class EditTaskViewState extends State<EditTaskView> {
                 Navigator.pop(
                     context,
                     TaskItem(
-                        id: task.id,
+                        id: '',
                         title: title,
                         deadline: deadline,
                         description: description));
               }
             },
-            child: const Text('Save changes',
-                style: TextStyle(color: Colors.white, fontSize: 14)),
+            child: const Text('Save',
+                style: TextStyle(color: Colors.white, fontSize: 17)),
           ),
         ],
       ),
@@ -89,23 +84,23 @@ class EditTaskViewState extends State<EditTaskView> {
                       style:
                           TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
                 ),
-                editTitleBox(),
+                titleBox(),
                 Container(
                   padding: const EdgeInsets.only(left: 23),
-                  margin: const EdgeInsets.only(top: 20),
+                  margin: const EdgeInsets.only(top: 30),
                   child: const Text('Deadline',
                       style:
                           TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
                 ),
-                editDeadlineBox(),
+                deadlineBox(),
                 Container(
                   padding: const EdgeInsets.only(left: 23),
-                  margin: const EdgeInsets.only(top: 20),
+                  margin: const EdgeInsets.only(top: 30),
                   child: const Text('Description',
                       style:
                           TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
                 ),
-                editDescriptionBox(),
+                descriptionBox(),
               ],
             ),
           ),
@@ -114,7 +109,7 @@ class EditTaskViewState extends State<EditTaskView> {
     );
   }
 
-  Widget editTitleBox() {
+  Widget titleBox() {
     return Container(
       margin: const EdgeInsets.all(1),
       padding: const EdgeInsets.all(10),
@@ -129,6 +124,7 @@ class EditTaskViewState extends State<EditTaskView> {
         decoration: InputDecoration(
           contentPadding:
               const EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
+          hintText: 'Add new task',
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.indigo, width: 1.0),
             borderRadius: BorderRadius.circular(20.0),
@@ -142,7 +138,7 @@ class EditTaskViewState extends State<EditTaskView> {
     );
   }
 
-  Widget editDeadlineBox() {
+  Widget deadlineBox() {
     return Container(
       margin: const EdgeInsets.all(1),
       padding: const EdgeInsets.all(10),
@@ -157,6 +153,7 @@ class EditTaskViewState extends State<EditTaskView> {
         decoration: InputDecoration(
           contentPadding:
               const EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
+          hintText: 'yy/mm/dd',
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.indigo, width: 1.0),
             borderRadius: BorderRadius.circular(20.0),
@@ -170,7 +167,7 @@ class EditTaskViewState extends State<EditTaskView> {
     );
   }
 
-  Widget editDescriptionBox() {
+  Widget descriptionBox() {
     return Container(
       margin: const EdgeInsets.all(1),
       padding: const EdgeInsets.all(10),
@@ -179,6 +176,7 @@ class EditTaskViewState extends State<EditTaskView> {
         decoration: InputDecoration(
           contentPadding:
               const EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
+          hintText: 'Add description (optional)',
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.indigo, width: 1.0),
             borderRadius: BorderRadius.circular(20.0),
