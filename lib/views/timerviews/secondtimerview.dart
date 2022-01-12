@@ -2,22 +2,24 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ndialog/ndialog.dart';
-import 'informationview.dart';
 import 'timerbuttons.dart';
 
 class SecondTimerView extends StatefulWidget {
+  const SecondTimerView({Key? key}) : super(key: key);
+
   @override
   State<SecondTimerView> createState() => _SecondTimerView();
 }
 
 class _SecondTimerView extends State<SecondTimerView> {
-  static const countDownDuration = Duration(minutes: 0, seconds: 3);
+  static const countDownDuration =
+      Duration(minutes: 0, seconds: 3); // KOM IHÅG ATT ÄNDRA TILL 5 MINUTER
   Duration duration = countDownDuration;
 
   Timer? timer;
 
   bool countDown = true;
-  @override
+
   void initstate() {
     super.initState();
     reset();
@@ -27,12 +29,12 @@ class _SecondTimerView extends State<SecondTimerView> {
     if (countDown) {
       setState(() => duration = countDownDuration);
     } else {
-      setState(() => duration = Duration());
+      setState(() => duration = const Duration());
     }
   }
 
   void startTimer() {
-    timer = Timer.periodic(Duration(seconds: 1), (_) => addTime());
+    timer = Timer.periodic(const Duration(seconds: 1), (_) => addTime());
   }
 
   void addTime() {
@@ -58,15 +60,18 @@ class _SecondTimerView extends State<SecondTimerView> {
   void finishedTimer() async {
     await NDialog(
       dialogStyle: DialogStyle(titleDivider: true),
-      title: Text("Timer Completed"),
-      content: Text("Time to study!"),
+      title: const Icon(Icons.alarm_on),
+      content: const Text(
+        'Time to study!',
+        textAlign: TextAlign.center,
+      ),
       actions: <Widget>[
         ElevatedButton(
             style: ButtonStyle(
               backgroundColor:
                   MaterialStateColor.resolveWith((states) => Colors.blue),
             ),
-            child: Text("Close"), 
+            child: const Text('Close'),
             onPressed: () {
               Navigator.pop(context);
               reset();
@@ -77,19 +82,15 @@ class _SecondTimerView extends State<SecondTimerView> {
 
   @override
   Widget build(BuildContext context) {
-    final ButtonStyle style = ElevatedButton.styleFrom(
-      padding: EdgeInsets.all(10.0),
-      minimumSize: const Size(20.0, 20.0),
-    );
     return Scaffold(
       body: Center(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 200,
             ),
             timeWidget(),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             stopWidget(),
@@ -108,12 +109,12 @@ class _SecondTimerView extends State<SecondTimerView> {
       children: [
         timeWidgetCard(
           time: minutes,
-          header: 'MINUTER',
+          header: 'MINUTES',
         ),
-        SizedBox(width: 7),
+        const SizedBox(width: 7),
         timeWidgetCard(
           time: seconds,
-          header: 'SEKUNDER',
+          header: 'SECONDS',
         )
       ],
     );
@@ -125,7 +126,7 @@ class _SecondTimerView extends State<SecondTimerView> {
     return isLive || isDone
         ? Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             MainTimerButton(
-                text: 'Pausa',
+                text: 'Pause',
                 color: Colors.blue.shade800,
                 backgroundColor: Colors.grey.shade200,
                 onClicked: () {
@@ -133,9 +134,9 @@ class _SecondTimerView extends State<SecondTimerView> {
                     stopTimer(resets: false);
                   }
                 }),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             MainTimerButton(
-                text: 'Avbryt',
+                text: 'Cancel',
                 color: Colors.grey.shade200,
                 backgroundColor: Colors.blue.shade800,
                 onClicked: () {
@@ -143,7 +144,7 @@ class _SecondTimerView extends State<SecondTimerView> {
                 })
           ])
         : MainTimerButton(
-            text: 'Starta Timer',
+            text: 'Start Timer',
             color: Colors.grey.shade200,
             backgroundColor: Colors.blue.shade800,
             onClicked: () {

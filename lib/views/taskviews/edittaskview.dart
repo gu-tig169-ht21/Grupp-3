@@ -1,7 +1,5 @@
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-
-import '../model.dart';
+import '../../model.dart';
 
 class EditTaskView extends StatefulWidget {
   final TaskItem task;
@@ -57,7 +55,7 @@ class EditTaskViewState extends State<EditTaskView> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Ändra Uppgift'),
+        title: const Text('Edit assignment'),
         actions: [
           ElevatedButton(
             onPressed: () {
@@ -71,7 +69,8 @@ class EditTaskViewState extends State<EditTaskView> {
                         description: description));
               }
             },
-            child: Text('Spara Ändring', style: TextStyle(color: Colors.white)),
+            child: const Text('Save',
+                style: TextStyle(color: Colors.white, fontSize: 17)),
           ),
         ],
       ),
@@ -86,7 +85,7 @@ class EditTaskViewState extends State<EditTaskView> {
                 Container(
                   padding: const EdgeInsets.only(left: 23),
                   margin: const EdgeInsets.only(top: 30),
-                  child: const Text('Titel',
+                  child: const Text('Title',
                       style:
                           TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
                 ),
@@ -102,7 +101,7 @@ class EditTaskViewState extends State<EditTaskView> {
                 Container(
                   padding: const EdgeInsets.only(left: 23),
                   margin: const EdgeInsets.only(top: 20),
-                  child: const Text('Beskrivning',
+                  child: const Text('Description',
                       style:
                           TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
                 ),
@@ -112,7 +111,7 @@ class EditTaskViewState extends State<EditTaskView> {
           ),
         ),
       ),
-    ); //Ändra editknapp
+    );
   }
 
   Widget editTitleBox() {
@@ -129,7 +128,7 @@ class EditTaskViewState extends State<EditTaskView> {
         controller: titleEditingController,
         decoration: InputDecoration(
           contentPadding:
-              new EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
+              const EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.indigo, width: 1.0),
             borderRadius: BorderRadius.circular(20.0),
@@ -157,7 +156,7 @@ class EditTaskViewState extends State<EditTaskView> {
         controller: deadlineEditingController,
         decoration: InputDecoration(
           contentPadding:
-              new EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
+              const EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.indigo, width: 1.0),
             borderRadius: BorderRadius.circular(20.0),
@@ -179,7 +178,7 @@ class EditTaskViewState extends State<EditTaskView> {
         controller: descriptionEditingController,
         decoration: InputDecoration(
           contentPadding:
-              new EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
+              const EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.indigo, width: 1.0),
             borderRadius: BorderRadius.circular(20.0),

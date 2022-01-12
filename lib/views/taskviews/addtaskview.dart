@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../model.dart';
+import '../../model.dart';
 
 class AddTaskView extends StatefulWidget {
   final TaskItem task;
@@ -51,7 +50,7 @@ class AddTaskViewState extends State<AddTaskView> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Lägg till uppgift'),
+        title: const Text('Add task'),
         actions: [
           ElevatedButton(
             onPressed: () {
@@ -65,7 +64,8 @@ class AddTaskViewState extends State<AddTaskView> {
                         description: description));
               }
             },
-            child: Text('Spara', style: TextStyle(color: Colors.white)),
+            child: const Text('Save',
+                style: TextStyle(color: Colors.white, fontSize: 17)),
           ),
         ],
       ),
@@ -80,7 +80,7 @@ class AddTaskViewState extends State<AddTaskView> {
                 Container(
                   padding: const EdgeInsets.only(left: 23),
                   margin: const EdgeInsets.only(top: 30),
-                  child: const Text('Add title',
+                  child: const Text('Title',
                       style:
                           TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
                 ),
@@ -88,7 +88,7 @@ class AddTaskViewState extends State<AddTaskView> {
                 Container(
                   padding: const EdgeInsets.only(left: 23),
                   margin: const EdgeInsets.only(top: 30),
-                  child: const Text('Add deadline',
+                  child: const Text('Deadline',
                       style:
                           TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
                 ),
@@ -96,7 +96,7 @@ class AddTaskViewState extends State<AddTaskView> {
                 Container(
                   padding: const EdgeInsets.only(left: 23),
                   margin: const EdgeInsets.only(top: 30),
-                  child: const Text('Add description',
+                  child: const Text('Description',
                       style:
                           TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
                 ),
@@ -123,7 +123,7 @@ class AddTaskViewState extends State<AddTaskView> {
         controller: titleEditingController,
         decoration: InputDecoration(
           contentPadding:
-              new EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
+              const EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
           hintText: 'Add new task',
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.indigo, width: 1.0),
@@ -152,7 +152,7 @@ class AddTaskViewState extends State<AddTaskView> {
         controller: deadlineEditingController,
         decoration: InputDecoration(
           contentPadding:
-              new EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
+              const EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
           hintText: 'yy/mm/dd',
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.indigo, width: 1.0),
@@ -175,7 +175,7 @@ class AddTaskViewState extends State<AddTaskView> {
         controller: descriptionEditingController,
         decoration: InputDecoration(
           contentPadding:
-              new EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
+              const EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
           hintText: 'Add description (optional)',
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.indigo, width: 1.0),
@@ -188,7 +188,5 @@ class AddTaskViewState extends State<AddTaskView> {
         ),
       ),
     );
-
-    //Lägg till val av färg
   }
 }

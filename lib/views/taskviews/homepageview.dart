@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_first_app/views/taskview.dart';
+import 'package:my_first_app/views/taskviews/taskview.dart';
 import 'package:my_first_app/views/timerviews/maintimerview.dart';
-import 'timerviews/firsttimerview.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -22,10 +21,12 @@ class HomePage extends StatelessWidget {
             Container(height: 40),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MainTimerView()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const MainTimerView()));
               },
-              child: const Text('PLUGGA'),
+              child: const Text('STUDY'),
               style: ElevatedButton.styleFrom(
                   textStyle: const TextStyle(
                       fontSize: 18, fontWeight: FontWeight.bold),
@@ -39,7 +40,7 @@ class HomePage extends StatelessWidget {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const TaskView()));
               },
-              child: const Text('UPPGIFTER'),
+              child: const Text('ASSIGNMENTS'),
               style: ElevatedButton.styleFrom(
                   textStyle: const TextStyle(
                       fontSize: 18, fontWeight: FontWeight.bold),

@@ -1,11 +1,8 @@
-import 'dart:async';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../model.dart';
+import '../../model.dart';
 import 'addtaskview.dart';
-import 'dart:math';
 import 'descriptionview.dart';
 
 class TaskView extends StatelessWidget {
@@ -16,14 +13,14 @@ class TaskView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Uppgifter'),
+        title: const Text('Assignments'),
       ),
       body: Consumer<MyState>(
         builder: (context, state, child) => TaskList(state.list),
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        // backgroundColor: Colors.blue.shade800,
+        child: const Icon(Icons.add, color: Colors.white, size: 40),
+        backgroundColor: Colors.blue.shade800,
         onPressed: () async {
           var newItem = await Navigator.push(
               context,
@@ -42,7 +39,7 @@ class TaskView extends StatelessWidget {
 class TaskList extends StatelessWidget {
   final List<TaskItem> list;
 
-  TaskList(this.list);
+  const TaskList(this.list);
 
   @override
   Widget build(BuildContext context) {
@@ -56,10 +53,8 @@ class TaskList extends StatelessWidget {
               if (snapshot.data != null) {
                 return ListView(
                   children: snapshot.data!.map((TaskItem item) {
-                    return Container(
-                      child: Center(
-                        child: _taskItem(context, item),
-                      ),
+                    return Center(
+                      child: _taskItem(context, item),
                     );
                   }).toList(),
                 );
@@ -86,7 +81,7 @@ Widget _taskItem(context, TaskItem task) {
     title: Text(task.title),
     subtitle: Text(task.deadline),
     trailing: IconButton(
-      icon: Icon(Icons.delete),
+      icon: const Icon(Icons.delete),
       onPressed: () {
         state.removeTask(task);
       },

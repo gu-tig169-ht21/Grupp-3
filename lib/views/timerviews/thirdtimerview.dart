@@ -1,24 +1,25 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:my_first_app/views/homepageview.dart';
 import 'package:ndialog/ndialog.dart';
-import 'informationview.dart';
 import 'timerbuttons.dart';
 
 class ThirdTimerView extends StatefulWidget {
+  const ThirdTimerView({Key? key}) : super(key: key);
+
   @override
   State<ThirdTimerView> createState() => _ThirdTimerView();
 }
 
 class _ThirdTimerView extends State<ThirdTimerView> {
-  static const countDownDuration = Duration(minutes: 0, seconds: 3);
+  static const countDownDuration =
+      Duration(minutes: 0, seconds: 3); // KOM IHÅG ATT ÄNDRA TILL 15 MINUTER
   Duration duration = countDownDuration;
 
   Timer? timer;
 
   bool countDown = true;
-  @override
+
   void initstate() {
     super.initState();
     reset();
@@ -28,12 +29,12 @@ class _ThirdTimerView extends State<ThirdTimerView> {
     if (countDown) {
       setState(() => duration = countDownDuration);
     } else {
-      setState(() => duration = Duration());
+      setState(() => duration = const Duration());
     }
   }
 
   void startTimer() {
-    timer = Timer.periodic(Duration(seconds: 1), (_) => addTime());
+    timer = Timer.periodic(const Duration(seconds: 1), (_) => addTime());
   }
 
   void addTime() {
@@ -59,15 +60,18 @@ class _ThirdTimerView extends State<ThirdTimerView> {
   void finishedTimer() async {
     await NDialog(
       dialogStyle: DialogStyle(titleDivider: true),
-      title: Text("Timer Completed"),
-      content: Text("Congrats, you have now finished the set!"),
+      title: const Icon(Icons.alarm_on),
+      content: const Text(
+        'Congrats, you have now finished the set!',
+        textAlign: TextAlign.center,
+      ),
       actions: <Widget>[
         ElevatedButton(
             style: ButtonStyle(
               backgroundColor:
                   MaterialStateColor.resolveWith((states) => Colors.blue),
             ),
-            child: Text("Close"), 
+            child: const Text('Close'),
             onPressed: () {
               Navigator.pop(context);
               reset();
@@ -78,19 +82,15 @@ class _ThirdTimerView extends State<ThirdTimerView> {
 
   @override
   Widget build(BuildContext context) {
-    final ButtonStyle style = ElevatedButton.styleFrom(
-      padding: EdgeInsets.all(10.0),
-      minimumSize: const Size(20.0, 20.0),
-    );
     return Scaffold(
       body: Center(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 200,
             ),
             timeWidget(),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             stopWidget(),
@@ -109,12 +109,12 @@ class _ThirdTimerView extends State<ThirdTimerView> {
       children: [
         timeWidgetCard(
           time: minutes,
-          header: 'MINUTER',
+          header: 'MINUTES',
         ),
-        SizedBox(width: 7),
+        const SizedBox(width: 7),
         timeWidgetCard(
           time: seconds,
-          header: 'SEKUNDER',
+          header: 'SECONDS',
         )
       ],
     );
@@ -126,7 +126,7 @@ class _ThirdTimerView extends State<ThirdTimerView> {
     return isLive || isDone
         ? Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             MainTimerButton(
-                text: 'Pausa',
+                text: 'Pause',
                 color: Colors.blue.shade800,
                 backgroundColor: Colors.grey.shade200,
                 onClicked: () {
@@ -134,9 +134,9 @@ class _ThirdTimerView extends State<ThirdTimerView> {
                     stopTimer(resets: false);
                   }
                 }),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             MainTimerButton(
-                text: 'Avbryt',
+                text: 'Cancel',
                 color: Colors.grey.shade200,
                 backgroundColor: Colors.blue.shade800,
                 onClicked: () {
@@ -144,7 +144,7 @@ class _ThirdTimerView extends State<ThirdTimerView> {
                 })
           ])
         : MainTimerButton(
-            text: 'Starta Timer',
+            text: 'Start Timer',
             color: Colors.grey.shade200,
             backgroundColor: Colors.blue.shade800,
             onClicked: () {

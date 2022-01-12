@@ -5,7 +5,7 @@ class TaskItem {
   String id; //varje task behöver ett id
   String title; //varje task behöver en title
   String deadline; //varje task behöver en deadline
-  String? description;
+  String? description; //varje task kan ha en description men inget krav
 
   TaskItem(
       {required this.id,
@@ -30,7 +30,7 @@ class TaskItem {
 }
 
 class MyState extends ChangeNotifier {
-  List<TaskItem> _list = [];
+  final List<TaskItem> _list = [];
 
   List<TaskItem> get list => _list;
 
@@ -57,7 +57,7 @@ class MyState extends ChangeNotifier {
         .collection('TaskItem')
         .doc(task.id)
         .delete()
-        .then((value) => print('Det togs bort'))
+        .then((value) => print('Task deleted'))
         .catchError((error) => print('Failed to delete task: $error'));
   }
 
@@ -70,7 +70,7 @@ class MyState extends ChangeNotifier {
           'deadline': task.deadline,
           'description': task.description
         })
-        .then((value) => print('Uppgiften uppdaterades'))
+        .then((value) => print('Task updated'))
         .catchError((error) => print('Failed to update task: $error'));
   }
 }

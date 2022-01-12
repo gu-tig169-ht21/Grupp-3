@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_first_app/views/timerviews/firsttimerview.dart';
-import 'thirdtimerview.dart';
-import 'secondtimerview.dart';
 
 class MainTimerButton extends StatelessWidget {
   final String text;
@@ -10,10 +7,12 @@ class MainTimerButton extends StatelessWidget {
   final VoidCallback onClicked;
 
   const MainTimerButton(
-      {required this.text,
+      {Key? key,
+      required this.text,
       required this.onClicked,
       this.color = Colors.white,
-      this.backgroundColor = Colors.grey});
+      this.backgroundColor = Colors.grey})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) => ElevatedButton(
@@ -35,7 +34,7 @@ Widget timeWidgetCard({required String time, required String header}) => Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          padding: EdgeInsets.all(7),
+          padding: const EdgeInsets.all(7),
           decoration: BoxDecoration(
             color: Colors.lightBlue[700],
             borderRadius: BorderRadius.circular(10),
@@ -48,7 +47,7 @@ Widget timeWidgetCard({required String time, required String header}) => Column(
                 fontSize: 40),
           ),
         ),
-        SizedBox(height: 20),
-        Text(header, style: TextStyle(color: Colors.blueGrey)),
+        const SizedBox(height: 20),
+        Text(header, style: const TextStyle(color: Colors.blueGrey)),
       ],
     );

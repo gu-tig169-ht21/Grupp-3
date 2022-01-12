@@ -1,14 +1,12 @@
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_first_app/model.dart';
-import 'package:my_first_app/views/edittaskview.dart';
+import 'package:my_first_app/views/taskviews/edittaskview.dart';
 import 'package:provider/provider.dart';
 
 class DescriptionView extends StatefulWidget {
   final task;
-
-  DescriptionView(this.task);
+  const DescriptionView(this.task);
 
   @override
   State<DescriptionView> createState() {
@@ -25,7 +23,7 @@ class DescriptionViewState extends State<DescriptionView> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Granska uppgift'),
+        title: const Text('Review assignment'),
         actions: [
           ElevatedButton(
             onPressed: () async {
@@ -43,7 +41,8 @@ class DescriptionViewState extends State<DescriptionView> {
                 Navigator.pop(context);
               }
             },
-            child: Text('Ändra', style: TextStyle(color: Colors.white)),
+            child: const Text('Edit',
+                style: TextStyle(color: Colors.white, fontSize: 17)),
           ),
         ],
       ),
@@ -53,30 +52,30 @@ class DescriptionViewState extends State<DescriptionView> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: EdgeInsets.only(left: 23),
-              margin: EdgeInsets.only(top: 30),
-              child: Text('Titel',
+              padding: const EdgeInsets.only(left: 23),
+              margin: const EdgeInsets.only(top: 30),
+              child: const Text('Title',
                   style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
             ),
             titleViewWidget(),
             Container(
-              padding: EdgeInsets.only(left: 23),
-              margin: EdgeInsets.only(top: 20),
-              child: Text('Deadline',
+              padding: const EdgeInsets.only(left: 23),
+              margin: const EdgeInsets.only(top: 20),
+              child: const Text('Deadline',
                   style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
             ),
             deadlineViewWidget(),
             Container(
-              padding: EdgeInsets.only(left: 23),
-              margin: EdgeInsets.only(top: 20),
-              child: Text('Beskrivning',
+              padding: const EdgeInsets.only(left: 23),
+              margin: const EdgeInsets.only(top: 20),
+              child: const Text('Description',
                   style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
             ),
             descriptionViewWidget(),
           ],
         ),
       ),
-    ); //Ändra editknapp
+    );
   }
 
   Widget titleViewWidget() {
