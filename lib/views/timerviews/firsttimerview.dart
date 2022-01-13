@@ -14,8 +14,9 @@ class FirstTimerView extends StatefulWidget {
 
 class _FirstTimerView extends State<FirstTimerView> {
   static const countDownDuration =
-      Duration(minutes: 0, seconds: 3); // KOM IHÅG ATT ÄNDRA TILL 25 MINUTER
-  Duration duration = countDownDuration; //Delar upp tidsspann i minuter och sekunder med hjälp av raden ovanför
+      Duration(minutes: 0, seconds: 5); // KOM IHÅG ATT ÄNDRA TILL 25 MINUTER
+  Duration duration =
+      countDownDuration; //Delar upp tidsspann i minuter och sekunder med hjälp av raden ovanför
 
   Timer? timer; //Inbyggd timer i flutter som räknar ner till 0
 
@@ -34,13 +35,16 @@ class _FirstTimerView extends State<FirstTimerView> {
 
   //Nedräknarfunktion
   void addTime() {
-    final addSeconds = countDown ? -1 : 1; //Ser till att en sekund alltid försvinner
+    final addSeconds =
+        countDown ? -1 : 1; //Ser till att en sekund alltid försvinner
     setState(() {
       final seconds = duration.inSeconds + addSeconds;
-      if (seconds < 0) { //När seconds blir mindre än 0 stannar timern
+      if (seconds < 0) {
+        //När seconds blir mindre än 0 stannar timern
         timer?.cancel();
-        finishedTimer(); 
-      } else { //Annars fortsätter timern
+        finishedTimer();
+      } else {
+        //Annars fortsätter timern
         duration = Duration(seconds: seconds);
       }
     });
@@ -62,6 +66,7 @@ class _FirstTimerView extends State<FirstTimerView> {
       setState(() => duration = const Duration());
     }
   }
+
   //Dialogruta när timern är klar. Används i addTime när timern nått 0
   void finishedTimer() async {
     await NDialog(
@@ -118,8 +123,7 @@ class _FirstTimerView extends State<FirstTimerView> {
           time: minutes,
           header: 'Minutes  /',
         ),
-        const SizedBox(
-          width: 7),
+        const SizedBox(width: 7),
         timeWidgetCard(
           time: seconds,
           header: 'Seconds',
@@ -130,7 +134,7 @@ class _FirstTimerView extends State<FirstTimerView> {
 
   //Hur nedräkningen ska reagera beroende på state
   Widget stopWidget() {
-    final isLive = timer == null ? false : timer!.isActive; 
+    final isLive = timer == null ? false : timer!.isActive;
     final isDone = duration.inSeconds == 0;
     return isLive || isDone
         ? Row(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -149,7 +153,7 @@ class _FirstTimerView extends State<FirstTimerView> {
                 color: Colors.grey.shade200,
                 backgroundColor: Colors.blue.shade800,
                 onClicked: () {
-                  stopTimer();  //Stoppar och resetar timern
+                  stopTimer(); //Stoppar och resetar timern
                 })
           ])
         : MainTimerButton(
