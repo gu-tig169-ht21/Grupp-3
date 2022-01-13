@@ -14,7 +14,7 @@ class FirstTimerView extends StatefulWidget {
 
 class _FirstTimerView extends State<FirstTimerView> {
   static const countDownDuration =
-      Duration(minutes: 0, seconds: 5); // KOM IHÅG ATT ÄNDRA TILL 25 MINUTER
+      Duration(minutes: 0, seconds: 10); // KOM IHÅG ATT ÄNDRA TILL 25 MINUTER
   Duration duration =
       countDownDuration; //Delar upp tidsspann i minuter och sekunder med hjälp av raden ovanför
 
