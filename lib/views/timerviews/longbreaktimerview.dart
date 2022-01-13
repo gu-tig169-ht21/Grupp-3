@@ -4,17 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:ndialog/ndialog.dart';
 import 'timerbuttons.dart';
 
-//Pomodoro 25 minuter
-class FirstTimerView extends StatefulWidget {
-  const FirstTimerView({Key? key}) : super(key: key);
+//Timer på 15 minuter
+class LongBreakTimerView extends StatefulWidget {
+  const LongBreakTimerView({Key? key}) : super(key: key);
 
   @override
-  State<FirstTimerView> createState() => _FirstTimerView();
+  State<LongBreakTimerView> createState() => _LongBreakTimerView();
 }
 
-class _FirstTimerView extends State<FirstTimerView> {
+class _LongBreakTimerView extends State<LongBreakTimerView> {
   static const countDownDuration =
-      Duration(minutes: 0, seconds: 10); // KOM IHÅG ATT ÄNDRA TILL 25 MINUTER
+      Duration(minutes: 0, seconds: 3); // KOM IHÅG ATT ÄNDRA TILL 15 MINUTER
   Duration duration =
       countDownDuration; //Delar upp tidsspann i minuter och sekunder med hjälp av raden ovanför
 
@@ -73,7 +73,7 @@ class _FirstTimerView extends State<FirstTimerView> {
       dialogStyle: DialogStyle(titleDivider: true),
       title: const Icon(Icons.alarm_on),
       content: const Text(
-        'Time for a break',
+        'Congrats, you have now finished the set!',
         textAlign: TextAlign.center,
       ),
       actions: <Widget>[
@@ -121,12 +121,12 @@ class _FirstTimerView extends State<FirstTimerView> {
       children: [
         timeWidgetCard(
           time: minutes,
-          header: 'Minutes  /',
+          header: 'MINUTES',
         ),
         const SizedBox(width: 7),
         timeWidgetCard(
           time: seconds,
-          header: 'Seconds',
+          header: 'SECONDS',
         )
       ],
     );

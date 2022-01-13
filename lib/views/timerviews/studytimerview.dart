@@ -4,18 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:ndialog/ndialog.dart';
 import 'timerbuttons.dart';
 
-//Timer på 5 minuter
-class SecondTimerView extends StatefulWidget {
-  const SecondTimerView({Key? key}) : super(key: key);
+//Pomodoro 25 minuter
+class StudyTimerView extends StatefulWidget {
+  const StudyTimerView({Key? key}) : super(key: key);
 
   @override
-  State<SecondTimerView> createState() => _SecondTimerView();
+  State<StudyTimerView> createState() => _StudyTimerView();
 }
 
-class _SecondTimerView extends State<SecondTimerView> {
+class _StudyTimerView extends State<StudyTimerView> {
   static const countDownDuration =
-      Duration(minutes: 0, seconds: 3); // KOM IHÅG ATT ÄNDRA TILL 5 MINUTER
-  Duration duration = countDownDuration;//Delar upp tidsspann i minuter och sekunder med hjälp av raden ovanför
+      Duration(minutes: 0, seconds: 10); // KOM IHÅG ATT ÄNDRA TILL 25 MINUTER
+  Duration duration =
+      countDownDuration; //Delar upp tidsspann i minuter och sekunder med hjälp av raden ovanför
 
   Timer? timer; //Inbyggd timer i flutter som räknar ner till 0
 
@@ -34,13 +35,16 @@ class _SecondTimerView extends State<SecondTimerView> {
 
   //Nedräknarfunktion
   void addTime() {
-    final addSeconds = countDown ? -1 : 1; //Ser till att en sekund alltid försvinner
+    final addSeconds =
+        countDown ? -1 : 1; //Ser till att en sekund alltid försvinner
     setState(() {
       final seconds = duration.inSeconds + addSeconds;
-      if (seconds < 0) { //När seconds blir mindre än 0 stannar timern
+      if (seconds < 0) {
+        //När seconds blir mindre än 0 stannar timern
         timer?.cancel();
         finishedTimer();
-      } else { //Annars fortsätter timern
+      } else {
+        //Annars fortsätter timern
         duration = Duration(seconds: seconds);
       }
     });
@@ -69,7 +73,7 @@ class _SecondTimerView extends State<SecondTimerView> {
       dialogStyle: DialogStyle(titleDivider: true),
       title: const Icon(Icons.alarm_on),
       content: const Text(
-        'Time to study!',
+        'Time for a break',
         textAlign: TextAlign.center,
       ),
       actions: <Widget>[
@@ -117,12 +121,12 @@ class _SecondTimerView extends State<SecondTimerView> {
       children: [
         timeWidgetCard(
           time: minutes,
-          header: 'MINUTES',
+          header: 'Minutes  /',
         ),
         const SizedBox(width: 7),
         timeWidgetCard(
           time: seconds,
-          header: 'SECONDS',
+          header: 'Seconds',
         )
       ],
     );

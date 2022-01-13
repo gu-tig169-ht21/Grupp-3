@@ -4,25 +4,26 @@ import 'package:flutter/material.dart';
 import 'package:ndialog/ndialog.dart';
 import 'timerbuttons.dart';
 
-//Timer på 15 minuter
-class ThirdTimerView extends StatefulWidget {
-  const ThirdTimerView({Key? key}) : super(key: key);
+//Timer på 5 minuter
+class ShortBreakTimerView extends StatefulWidget {
+  const ShortBreakTimerView({Key? key}) : super(key: key);
 
   @override
-  State<ThirdTimerView> createState() => _ThirdTimerView();
+  State<ShortBreakTimerView> createState() => _ShortBreakTimerView();
 }
 
-class _ThirdTimerView extends State<ThirdTimerView> {
+class _ShortBreakTimerView extends State<ShortBreakTimerView> {
   static const countDownDuration =
-      Duration(minutes: 0, seconds: 3); // KOM IHÅG ATT ÄNDRA TILL 15 MINUTER
-  Duration duration = countDownDuration; //Delar upp tidsspann i minuter och sekunder med hjälp av raden ovanför
+      Duration(minutes: 0, seconds: 3); // KOM IHÅG ATT ÄNDRA TILL 5 MINUTER
+  Duration duration =
+      countDownDuration; //Delar upp tidsspann i minuter och sekunder med hjälp av raden ovanför
 
   Timer? timer; //Inbyggd timer i flutter som räknar ner till 0
 
   bool countDown = true; //Deklararer att countdown är en boolean
 
   //Initierar state för att kunna setState
-  void initstate() { 
+  void initstate() {
     super.initState();
     reset();
   }
@@ -34,13 +35,16 @@ class _ThirdTimerView extends State<ThirdTimerView> {
 
   //Nedräknarfunktion
   void addTime() {
-    final addSeconds = countDown ? -1 : 1; //Ser till att en sekund alltid försvinner
+    final addSeconds =
+        countDown ? -1 : 1; //Ser till att en sekund alltid försvinner
     setState(() {
       final seconds = duration.inSeconds + addSeconds;
-      if (seconds < 0) { //När seconds blir mindre än 0 stannar timern
+      if (seconds < 0) {
+        //När seconds blir mindre än 0 stannar timern
         timer?.cancel();
         finishedTimer();
-      } else { //Annars fortsätter timern
+      } else {
+        //Annars fortsätter timern
         duration = Duration(seconds: seconds);
       }
     });
@@ -69,7 +73,7 @@ class _ThirdTimerView extends State<ThirdTimerView> {
       dialogStyle: DialogStyle(titleDivider: true),
       title: const Icon(Icons.alarm_on),
       content: const Text(
-        'Congrats, you have now finished the set!',
+        'Time to study!',
         textAlign: TextAlign.center,
       ),
       actions: <Widget>[
