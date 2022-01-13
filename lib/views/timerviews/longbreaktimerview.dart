@@ -13,8 +13,7 @@ class LongBreakTimerView extends StatefulWidget {
 }
 
 class _LongBreakTimerView extends State<LongBreakTimerView> {
-  static const countDownDuration =
-      Duration(minutes: 0, seconds: 3); // KOM IHÅG ATT ÄNDRA TILL 15 MINUTER
+  static const countDownDuration = Duration(minutes: 15, seconds: 0);
   Duration duration =
       countDownDuration; //Delar upp tidsspann i minuter och sekunder med hjälp av raden ovanför
 
@@ -31,6 +30,7 @@ class _LongBreakTimerView extends State<LongBreakTimerView> {
   //Startar timer
   void startTimer() {
     timer = Timer.periodic(const Duration(seconds: 1), (_) => addTime());
+    setState(() {});
   }
 
   //Nedräknarfunktion

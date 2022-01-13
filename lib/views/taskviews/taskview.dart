@@ -45,28 +45,25 @@ class TaskList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<MyState>(
-      create: (context) => MyState(),
-      child: Consumer<MyState>(builder: (context, task, child) {
-        return StreamBuilder(
-            stream: task.getTasks(),
-            builder:
-                (BuildContext context, AsyncSnapshot<List<TaskItem>> snapshot) {
-              if (snapshot.data != null) {
-                return ListView(
-                  children: snapshot.data!.map((TaskItem item) {
-                    return Center(
-                      child: _taskItem(context, item),
-                    );
-                  }).toList(),
-                );
-              }
-              return const Center(
-                child: CircularProgressIndicator(),
+    return Consumer<MyState>(builder: (context, task, child) {
+      return StreamBuilder(
+          stream: task.getTasks(),
+          builder:
+              (BuildContext context, AsyncSnapshot<List<TaskItem>> snapshot) {
+            if (snapshot.data != null) {
+              return ListView(
+                children: snapshot.data!.map((TaskItem item) {
+                  return Center(
+                    child: _taskItem(context, item),
+                  );
+                }).toList(),
               );
-            });
-      }),
-    );
+            }
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          });
+    });
   }
 }
 

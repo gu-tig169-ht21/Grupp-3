@@ -13,8 +13,7 @@ class StudyTimerView extends StatefulWidget {
 }
 
 class _StudyTimerView extends State<StudyTimerView> {
-  static const countDownDuration =
-      Duration(minutes: 0, seconds: 10); // KOM IHÅG ATT ÄNDRA TILL 25 MINUTER
+  static const countDownDuration = Duration(minutes: 25, seconds: 0);
   Duration duration =
       countDownDuration; //Delar upp tidsspann i minuter och sekunder med hjälp av raden ovanför
 
@@ -31,6 +30,7 @@ class _StudyTimerView extends State<StudyTimerView> {
   //Startar timer
   void startTimer() {
     timer = Timer.periodic(const Duration(seconds: 1), (_) => addTime());
+    setState(() {});
   }
 
   //Nedräknarfunktion
